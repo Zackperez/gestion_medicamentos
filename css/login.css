@@ -1,0 +1,42 @@
+@import url(./config/global.css);
+
+.principal-contenido{
+    display: grid;
+    grid-template-areas: 
+    'imagen textos'
+    'imagen botones';
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    justify-items: center;
+}
+
+.principal-imagen{
+    grid-area: imagen;
+}
+
+.principal-textos{
+    grid-area: textos;
+}
+
+.principal-botones{
+    grid-area: botones;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    column-gap: 1vw;
+}
+
+.principal-botones a {
+    text-align: center;
+    padding: 0.7vw 2.5vw;
+    border-radius: 0.5vw;
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
+    background-color: var(--anaranjado);
+}
+
+.principal-botones a:hover {
+    background-color: rgb(250, 156, 171);
+}
+

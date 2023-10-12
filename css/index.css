@@ -1,0 +1,430 @@
+@import url(./config/global.css);
+
+
+a {
+    cursor: pointer;
+}
+
+button {
+    background-color: transparent;
+    border: none;
+}
+
+.hero {
+    display: grid;
+    grid-template-areas:
+        "menu"
+        "pagina-principal";
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 90vh;
+}
+
+
+.pagina-principal {
+    grid-area: pagina-principal;
+    display: grid;
+    justify-items: center;
+
+}
+
+.principal-grilla {
+    display: grid;
+    grid-template-areas:
+        "imagen textos"
+        "imagen botones";
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 60vh 20vh;
+    column-gap: 10vw;
+}
+
+.principal-imagen {
+    display: grid;
+    align-items: center;
+    grid-area: imagen;
+    justify-content: center;
+}
+
+.principal__imagen {
+    height: 45vh;
+    width: auto;
+}
+
+.principal-recordatorios {
+    display: grid;
+    align-content: center;
+    grid-template-areas: 
+    "titulo"
+    "informacion";
+    grid-area: textos;
+}
+
+.principal-titulo{
+    grid-area: titulo;
+}
+
+.principal-titulo h1{
+    text-align: center;
+}
+
+
+.principal-informacion{
+    grid-area: informacion;
+    display: grid;
+    row-gap: 2vw;
+}
+
+.principal-informacion .contenedor{
+    display: grid;
+    grid-template-areas: 
+    "fecha hora"
+    "informacion dia";
+    grid-template-rows: 7vh 10vh;
+    column-gap: 2vw;
+}
+
+.principal-informacion .informacion-hora, .informacion-dia{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+.principal-informacion .informacion-fecha, .informacion-recordatorio{
+    border-right: 1px solid black;
+    padding: 0 1vw;
+}
+
+.principal-informacion .informacion-fecha{
+    grid-area: fecha;
+    display: grid;
+    align-items: center;
+}
+
+.principal-informacion .informacion-recordatorio{
+    grid-area: informacion;
+}
+
+.principal-informacion .informacion-hora{
+    grid-area: hora;
+}
+
+.principal-informacion .informacion-dia{
+    grid-area: dia;
+}
+.principal-informacion .informacion-fecha p{
+    font-size: 1.6vw;
+    font-weight: bold;
+}
+
+.principal-informacion .informacion-recordatorio p{
+    font-size: 1.3vw;
+}
+
+.principal-informacion .informacion-hora p{
+    font-size: 2.2vw;
+}
+
+.principal-informacion .informacion-dia p{
+    font-size: 1.7vw;
+}
+
+.principal__titulo {
+    font-size: 4vw;
+    line-height: 1;
+}
+
+.principal-botones {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    grid-area: botones;
+}
+
+.principal-botones a {
+    text-align: center;
+    padding: 0.7vw 2.5vw;
+    border-radius: 0.5vw;
+    text-decoration: none;
+    color: var(--negro);
+    font-weight: bold;
+    background-color: var(--anaranjado);
+}
+
+.principal-botones a:hover {
+    background-color: rgb(250, 156, 171);
+}
+
+.pagina-principal {
+    grid-area: pagina-principal;
+    display: grid;
+    margin: 0vh 10vw;
+    align-items: center;
+}
+
+/* CONTENIDO MENU */
+
+.menu {
+    grid-area: menu;
+    display: grid;
+    height: 10vh;
+    background-color: var(--anaranjado);
+}
+
+.menu-contenedor {
+    display: grid;
+    grid-template-areas:
+        "titulo enlaces";
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 15vw;
+    margin-right: 15vw;
+}
+
+.menu-titulo {
+    grid-area: titulo;
+}
+
+.menu-contenedor .menu-titulo .menu__titulo {
+    font-size: 2.2vw;
+    font-weight: bold;
+}
+
+.menu-lista {
+    grid-area: enlaces;
+}
+
+.menu-contenedor .menu-lista {
+    display: flex;
+}
+
+.menu-contenedor .menu-titulo .menu__titulo {
+    color: var(--negro);
+}
+
+.menu-contenedor .menu-lista .menu__item {
+    color: var(--negro);
+}
+
+.menu-contenedor .menu-lista .menu__item a {
+    font-size: 1.5vw;
+    margin-left: 2vw;
+    color: var(--negro);
+}
+
+.menu-contenedor .menu-lista .menu__item a:hover {
+    font-size: 1.7vw;
+}
+
+.menu-contenedor .menu-lista .menu__item--active a {
+    font-weight: bold;
+    border-bottom: 1px solid black;
+    color: black;
+}
+
+/* MODAL */
+
+/* Modal */
+.modal {
+    display: none;
+    /* POr defecto no se muestran en pantalla hasta que se abran */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+  
+  .modal-modificar .modal-contenido {
+    height: 80vh;
+  }
+  
+  .modal-modificar .modal-cuerpo {
+    display: flex;
+    column-gap: 2vw;
+    margin-left: 5vw;
+    align-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  
+  .modal-contenido {
+    display: grid;
+    height: 75vh;
+    background-color: #fefefe;
+    margin: 2% auto;
+    padding: 20px;
+    width: 50%;
+    border-radius: 0.4vw;
+  }
+
+  .modal-contenido .modal-cabecera .modal__descripcion{
+    padding: 1.5vw 1vw;
+    text-align: start;
+  }
+  
+  .modal-consultar .modal-cuerpo .campo .campo-id {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+  
+  .campo__botones .fa-solid {
+    color: #131417;
+  }
+  
+  .modal-cabecera {
+    text-align: center;
+  }
+  
+  .modal__titulo {
+    font-size: 5vh;
+    text-align: start;
+  }
+  
+  .modal__descripcion {
+    color: #4e4e4e;
+    font-size: 1.2vw;
+    padding: 0 2vw;
+  }
+  
+  .combobox {
+    width: 20vw;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+  }
+  
+  .modal-cuerpo {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: center;
+    padding: 0 3vw;
+    column-gap: 2vw;
+  }
+  
+  /* The Close Button */
+  .btn-cerrar-modal {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .btn-cerrar-modal:hover,
+  .btn-cerrar-modal:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  input[type = text], input[type = date]{ 
+    background-color: var(--anaranjado);
+    border: none;
+  }
+
+  select{
+    background-color: var(--anaranjado);
+    border: none;
+  }
+  
+  input[type=text], input[type=date] {
+    width: 20vw;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+  }
+  
+  .modal-pie {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+  }
+  
+  .modal-pie button {
+    margin-right: 3.1vw;
+    background-color: var(--anaranjado);
+    padding: 0.5vw 3vw;
+    border-radius: 0.5vw;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+
+@media only screen and (max-width: 600px) {
+
+    .hero {
+        display: grid;
+        grid-template-areas:
+            "menu"
+            "pagina-principal";
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr;
+    }
+
+    /* CONTENIDO MENU */
+    .menu {
+        height: 20vh;
+    }
+
+    .menu-contenedor {
+        display: grid;
+        grid-template-areas:
+            "titulo"
+            "enlaces";
+        margin: auto;
+        row-gap: 0vh;
+    }
+
+    .menu-contenedor .menu-titulo .menu__titulo {
+        font-size: 8vw;
+    }
+
+    .menu-contenedor .menu-lista .menu__item a {
+        font-size: 5vw;
+        margin-left: 3vw;
+    }
+
+    .pagina-principal{
+        padding: 10vw 0;
+    }
+
+    .principal-grilla {
+        display: grid;
+        grid-template-areas:
+            "textos"
+            "imagen"
+            "botones";
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto 10vh;
+        row-gap: 5vh;
+    }
+
+    .principal__titulo {
+        text-align: center;
+        font-size: 18vw;
+    }
+
+    .principal__imagen {
+        height: 35vh;
+        width: auto;
+    }
+
+    .principal-botones {
+        justify-content: center;
+    }
+
+    .principal-botones a {
+        text-align: center;
+        padding: 4vw;
+        font-size: 4vw;
+        border-radius: 0.5vw;
+        text-decoration: none;
+        color: var(--blanco);
+        background-color: var(--pink);
+    }
+
+}

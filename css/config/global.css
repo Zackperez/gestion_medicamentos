@@ -1,0 +1,19 @@
+@import url(normalice.css);
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
+*{
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    list-style: none;
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+}
+
+:root{
+    /*--blanco: rgb(255, 255, 255);*/
+    --blanco: white;
+    --negro: rgb(30, 30, 30);
+    --grisClaro: rgb(108, 108, 108);
+    --anaranjado: #FFBD59;
+}
