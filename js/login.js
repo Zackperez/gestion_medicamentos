@@ -17,14 +17,6 @@ const Modelo = {
     });
     return res;
   },
-
-  async traerRecordatorios(id_patient){
-    const res = await axios({
-      method: "POST",
-      url: "http://127.0.0.1:5000/obtener_recordatorio/"+id_patient,
-    });
-    return res;
-  }
 }
 
 const Vista = {
@@ -49,30 +41,32 @@ const Vista = {
   redirigirAIndex() {
     location.href = ("../index.html");
   }
+
 }
 
 const Controlador = {
+
   async iniciarSesion() {
     const { username, password } = Vista.getDatosIniciarSesion();
     try {
       const res = await Modelo.iniciarSesion(username, password);
       console.log(res)
-      if (res.data.acceso == "ACCESO A LA CUENTA AUTORIZADO") {
+      if (res.data.acceso == true) {
         const access_token = res.data.access_token;
         const id_patient = res.data.id_patient;
+
         localStorage.setItem("access_token", access_token);
         localStorage.setItem("id_patient", id_patient);
         Vista.mostrarMensajeSatisfactorio("Inicio de sesión exitoso");
-        //Vista.redirigirAIndex();
+        Vista.redirigirAIndex();
       } else {
         Vista.mostrarMensajeError("Usuario no encontrado")
-        //Vista.limpiarCampos();
       }
 
     } catch (err) {
       Vista.mostrarMensajeError('Error al iniciar sesión');
       console.log(err);
-      //Vista.limpiarCampos();
+      Vista.limpiarCampos();
     }
   },
 
@@ -85,6 +79,8 @@ const Controlador = {
       Vista.mostrarMensajeError(err);
     }
   }
+
+
 }
 
 
