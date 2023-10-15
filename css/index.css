@@ -71,6 +71,7 @@ button {
     grid-area: informacion;
     display: grid;
     row-gap: 2vw;
+    overflow-y: auto;
 }
 
 .principal-informacion .contenedor{

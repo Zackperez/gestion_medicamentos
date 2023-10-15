@@ -1,4 +1,5 @@
 const Modelo = {
+
     async iniciarSesion(username, password) {
       const datos_insertar = {
         usuario: username,
@@ -8,6 +9,14 @@ const Modelo = {
         method: "POST",
         url: "http://127.0.0.1:5000/login",
         data: datos_insertar
+      });
+      return res;
+    },
+
+    async traerRecordatorios(id_patient){
+      const res = await axios({
+        method: "POST",
+        url: "http://127.0.0.1:5000/obtener_recordatorio/"+id_patient,
       });
       return res;
     }
@@ -27,6 +36,10 @@ const Modelo = {
         text: mensaje,
       })
   
+    },
+
+    mostrarRecordatorios(){
+
     },
   
     mostrarMensajeSatisfactorio(mensaje) {
@@ -63,6 +76,16 @@ const Modelo = {
         console.log(err);
   
         Vista.limpiarCampos();
+      }
+    },
+
+    async obtenerTodosAlquileres() {
+      try {
+        const response = await Modelo.traerRecordatorios(id_patient);
+        Vista.mostrarPropiedades(response.data);
+      } catch (err) {
+        console.log(err);
+        Vista.mostrarMensajeError(err);
       }
     }
   }

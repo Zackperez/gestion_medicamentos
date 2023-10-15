@@ -28,7 +28,7 @@
 
                 <div class="principal-botones">
                     <div class="boton-iniciar-sesion">
-                        <a href="#" id= "botonIniciarSesion">Iniciar sesión</a>
+                        <a href="#" id= "btnAbrirIniciarSesionModal">Iniciar sesión</a>
                     </div>
                     <div class="boton-registrarse">
                         <a href="" id = "botonRegistrarse">Registrarse</a>
@@ -38,8 +38,47 @@
             </div>
         </div>
 
+        <div id="targetModalIniciarSesion" class="modal">
+            <!-- Modal content -->
+            <div class="modal-contenido">
+                <div class="modal-cabecera">
+                    <span class="btn-cerrar-modal cerrar-modal-iniciar-sesion">&times;</span>
+                    <h2 class="modal__titulo">CONTROL</h2>
+                    <p class="modal__descripcion"></p>
+                </div>
+
+                <div class="modal-cuerpo">
+
+                    <div class="campo">
+                        <div class="campo-titulo">
+                            <label for="name">Usuario</label>
+                        </div>
+                        <div class="campo-texto">
+                            <input type="text" id="userName" name="name" minlength="5" maxlength="15">
+                        </div>
+                    </div>  
+
+                    <div class="campo">
+                        <div class="campo-titulo">
+                            <label for="name">Contraseña</label>
+                        </div>
+
+                        <div class="campo-texto">
+                            <input type="text" id="userPass" name="name" minlength="5" maxlength="15">
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="modal-pie">
+                    <button id="btnIniciarSesionModal">Guardar</button>
+                </div>
+            </div>
+        </div>
+
     </div>
 
-    <script src="../js/login.js"></script>
+    <script type = "module" src="../js/login.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </body>
 </html>
