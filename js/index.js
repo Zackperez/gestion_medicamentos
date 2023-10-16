@@ -266,7 +266,8 @@ document.addEventListener('DOMContentLoaded', function () {
     }).then((result) => {
       if (result.isConfirmed) {
         localStorage.removeItem('access_token');
-        location.href = "../index.html";
+        localStorage.removeItem('id_patient');
+        location.reload();
       }
     })
 
