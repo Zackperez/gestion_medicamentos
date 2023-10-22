@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="./css/index.css">
     <!-- Estilos externos -->
 
-    <title>Document</title>
+    <title>Inicio</title>
 </head>
 
 <body>
@@ -16,8 +16,8 @@
     <div class="hero">
         <header class="menu">
             <nav class="menu-contenedor">
-                <div class="menu-titulo">
-
+                <div class="menu-imagen">
+                    <img src="./img/bloque9.png" alt="">
                 </div>
                 <ul class="menu-lista" id="menuLista">
                     <li class="menu__item menu__item--active"><a href="#">Inicio</a></li>
@@ -28,7 +28,11 @@
         </header>
 
         <section class="pagina-principal">
-            <div class="principal-grilla">
+
+            <div class="contenedor">
+
+                <div class="info-usuario" id="infoUsuarioContenedor">                </div>
+
                 <div class="calendario">
                     <header>
                         <p class="current-date"></p>
@@ -51,22 +55,24 @@
                     </div>
                 </div>
 
-                <div class="principal-recordatorios">
+                <div class="recordatorios">
 
-                    <div class="principal-titulo">
+                    <div class="titulo">
                         <h1>Recordatorios</h1>
                     </div>
 
-                    <div class="principal-informacion" id="contenedorRecordatorios">
-
-                    </div>
+                    <div class="informacion" id="contenedorRecordatorios"></div>
 
                 </div>
 
-                <div class="principal-botones">
+                <div class="botones">
                     <div class="boton-info">
                         <a href="pages/acerca_de.html">Agregar</a>
                     </div>
+                    <div class="boton-info">
+                        <a href="pages/acerca_de.html">Eliminar recordatorio</a>
+                    </div>
+                    
                 </div>
             </div>
 
@@ -175,7 +181,7 @@
                                 <label for="name">Redacta una breve descripción del reporte a enviar al doctor</label>
                             </div>
                             <div class="campo-texto">
-                                <textarea name="" id="" cols="70" rows="5"></textarea>
+                                <textarea name="" id="" cols="65" rows="5"></textarea>
                             </div>
                         </div>
 
@@ -186,6 +192,7 @@
                     </div>
                 </div>
             </div>
+
         </section>
 
     </div>

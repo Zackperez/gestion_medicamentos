@@ -27,10 +27,26 @@ const Modelo = {
       data: datos_insertar
     });
     return res;
+  },
+
+  async obtenerDatosUsuario(id_patient){
+    const datos_insertar = {
+      id_patient: id_patient
+    }
+
+    const res = await axios({
+      method: "POST",
+      url: "http://127.0.0.1:5000/buscar-paciente/",
+      data: datos_insertar
+    });
+
+    return res;
+    
   }
 }
 
 const Vista = {
+
   getDatosIniciarSesion() {
     const username = document.querySelector('#username').value;
     const password = document.querySelector('#password').value;
@@ -65,22 +81,18 @@ const Vista = {
 
   tomarhoy(fecha) {
     var fechaActual = new Date();
-    let dia = fechaActual.getDate();
+    let diaActual = fechaActual.getDate();
     let fechaDia = fecha.substr(0, 2)
 
-    if (fechaDia == dia) {
+    if (diaActual == fechaDia) {
       return "Hoy"
     }
-    if (fechaDia == dia + 1) {
+    else if (diaActual > fechaDia) {
+      return "Ya pasó"
+
+    }else{
       return "Mañana"
-    }
 
-    if (fechaDia == dia + 2) {
-      return "Pasado mañana"
-
-    } else {
-
-      return "Otro dia"
     }
   },
 
@@ -121,6 +133,18 @@ const Vista = {
     console.log(mensaje);
   },
 
+  mostrarInfoUsuario(response){
+    datosUsuario = response.data;
+    console.log(datosUsuario)
+    nombreUsuario = datosUsuario['name']
+    apellidoUsuario = datosUsuario['last_name']
+
+    const infoUsuarioContenedor = document.getElementById('infoUsuarioContenedor');
+    const parrafo = document.createElement('p');
+    parrafo.textContent = "Bienvenido(a): "+nombreUsuario+" "+apellidoUsuario 
+    infoUsuarioContenedor.append(parrafo)
+  },
+
   limpiarCampos() {
     username.value = "";
     password.value = "";
@@ -151,7 +175,6 @@ const Controlador = {
       Vista.mostrarMensajeError('Error al iniciar sesión');
       console.log(err);
 
-      Vista.limpiarCampos();
     }
   },
 
@@ -218,6 +241,19 @@ const Controlador = {
         renderCalendar(); // calling renderCalendar function
       });
     });
+  },
+
+  async infoUsuario(){
+
+    const id_patient = Vista.getDatosUsuarioRecordatorios();
+
+    try {
+      const res = await Modelo.obtenerDatosUsuario(id_patient);
+      Vista.mostrarInfoUsuario(res)
+
+    } catch (err) {
+      console.log(err);
+    }
   }
 }
 
@@ -225,6 +261,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   Controlador.obtenerRecordatorios();
   Controlador.mostrarRecordatoriosCalendario();
+  Controlador.infoUsuario()
   
   /* MODAL Eliminar */
   var modalEliminar = document.getElementById("targetModalInsertar");
