@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +10,7 @@
 
     <title>Document</title>
 </head>
+
 <body>
 
     <div class="hero">
@@ -19,25 +21,43 @@
                 </div>
                 <ul class="menu-lista" id="menuLista">
                     <li class="menu__item menu__item--active"><a href="#">Inicio</a></li>
-                    <li class="menu__item"><a id = "btnAbrirModalInsertar">Registrar un control</a></li>
-                    <li class="menu__item"><a id = "btnAbrirModalReportar">Reportes</a></li>
+                    <li class="menu__item"><a id="btnAbrirModalInsertar">Registrar un seguimiento</a></li>
+                    <li class="menu__item"><a id="btnAbrirModalReportar">Reportar malestar</a></li>
                 </ul>
             </nav>
         </header>
 
         <section class="pagina-principal">
             <div class="principal-grilla">
-                <div class="principal-imagen">
-                    <img class="principal__imagen" src="./img/calendario.jpg" alt="">
+                <div class="calendario">
+                    <header>
+                        <p class="current-date"></p>
+                        <div class="icons">
+                            <span id="prev" class="material-symbols-rounded"><</span>
+                                    <span id="next" class="material-symbols-rounded">></span>
+                        </div>
+                    </header>
+                    <div class="calendar">
+                        <ul class="weeks">
+                            <li>Dom</li>
+                            <li>Lun</li>
+                            <li>Mar</li>
+                            <li>Mie</li>
+                            <li>Jue</li>
+                            <li>Vie</li>
+                            <li>Sab</li>
+                        </ul>
+                        <ul class="days"></ul>
+                    </div>
                 </div>
 
                 <div class="principal-recordatorios">
 
                     <div class="principal-titulo">
-                        <h1>Inicio</h1>
+                        <h1>Recordatorios</h1>
                     </div>
 
-                    <div class="principal-informacion" id = "contenedorRecordatorios">
+                    <div class="principal-informacion" id="contenedorRecordatorios">
 
                     </div>
 
@@ -55,8 +75,10 @@
                 <div class="modal-contenido">
                     <div class="modal-cabecera">
                         <span class="btn-cerrar-modal cerrar-modal-insertar">&times;</span>
-                        <h2 class="modal__titulo">CONTROL</h2>
-                        <p class="modal__descripcion"></p>
+                        <h2 class="modal__titulo">Registrar un seguimiento</h2>
+                        <p class="modal__descripcion">Registra un medicamento que empezarás a tomar para obtener un recordatorio de cada cuando tomarlo.
+                            Recuerda que en la opcion de "Reportar" puedes enviarle este seguimiento al doctor para que esté enterado de tu tratamiento.
+                        </p>
                     </div>
 
                     <div class="modal-cuerpo">
@@ -73,7 +95,7 @@
                                     <option>Teragripxd</option>
                                 </select>
                             </div>
-                        </div>  
+                        </div>
                         <div class="campo">
                             <div class="campo-titulo">
                                 <label for="name">Malestar/Enfermedad</label>
@@ -103,13 +125,14 @@
                             <div class="campo-texto">
 
                                 <input type="checkbox" id="recordatorioDiario" name="name" minlength="5" maxlength="15">
-                                <label for="recordatorio-diario" class = "recordatorio-diario">A diario</label> <br>
-                                
-                                <input type="checkbox" id="recordatorio8Horas" name="name" minlength="5" maxlength="15"> 
+                                <label for="recordatorio-diario" class="recordatorio-diario">A diario</label> <br>
+
+                                <input type="checkbox" id="recordatorio8Horas" name="name" minlength="5" maxlength="15">
                                 <label for="">Cada 8 horas</label><br>
 
                                 <label for="">Personalizado</label>
-                                <input type="text" id="recordatorioPersonalizado" name="name" minlength="5" maxlength="15">
+                                <input type="text" id="recordatorioPersonalizado" name="name" minlength="5"
+                                    maxlength="15">
                             </div>
                         </div>
 
@@ -127,7 +150,8 @@
                     <div class="modal-cabecera">
                         <span class="btn-cerrar-modal cerrar-modal-reportar">&times;</span>
                         <h2 class="modal__titulo">Reportar</h2>
-                        <p class="modal__descripcion">Selecciona la enfermedad o malestar que queires reportar al doctor:</p>
+                        <p class="modal__descripcion">Selecciona la enfermedad o malestar que queires reportar al
+                            doctor:</p>
                     </div>
 
                     <div class="modal-cuerpo">
@@ -144,14 +168,14 @@
                                     <option>Nosexd</option>
                                 </select>
                             </div>
-                        </div>  
+                        </div>
 
                         <div class="campo">
                             <div class="campo-titulo">
-                                <label for="name">Malestar/Enfermedad</label>
+                                <label for="name">Redacta una breve descripción del reporte a enviar al doctor</label>
                             </div>
                             <div class="campo-texto">
-                                <textarea name="" id="" cols="30" rows="5"></textarea>
+                                <textarea name="" id="" cols="70" rows="5"></textarea>
                             </div>
                         </div>
 
@@ -165,9 +189,10 @@
         </section>
 
     </div>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="./js/index.js"></script>
 </body>
+
 </html>
