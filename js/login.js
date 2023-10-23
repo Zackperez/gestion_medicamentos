@@ -4,8 +4,8 @@ const Modelo = {
 
   async iniciarSesion(username, password) {
     const datos_insertar = {
-      user: username,
-      password: password
+      usuario: username,
+      contrasena: password
     }
 
     console.log(datos_insertar)
@@ -56,7 +56,7 @@ const Controlador = {
         const id_patient = res.data.id_patient;
 
         localStorage.setItem("access_token", access_token);
-        localStorage.setItem("id_patient", id_patient);
+        localStorage.setItem("id_paciente", id_patient);
         Vista.mostrarMensajeSatisfactorio("Inicio de sesión exitoso");
         Vista.redirigirAIndex();
       } else {
