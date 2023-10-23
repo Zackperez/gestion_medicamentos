@@ -21,7 +21,7 @@
                 </div>
                 <ul class="menu-lista" id="menuLista">
                     <li class="menu__item menu__item--active"><a href="#">Inicio</a></li>
-                    <li class="menu__item"><a id="btnAbrirModalInsertar">Registrar un seguimiento</a></li>
+                    <!--<li class="menu__item"><a id="btnAbrirModalInsertar">Registrar un seguimiento</a></li>-->
                     <li class="menu__item"><a id="btnAbrirModalReportar">Reportar malestar</a></li>
                 </ul>
             </nav>
@@ -67,12 +67,12 @@
 
                 <div class="botones">
                     <div class="boton-info">
-                        <a href="pages/acerca_de.html">Agregar</a>
+                        <a id="btnAbrirModalInsertar">Agregar</a>
                     </div>
                     <div class="boton-info">
-                        <a href="pages/acerca_de.html">Eliminar recordatorio</a>
+                        <a id="btnAbrirModalEliminarRecordatorio">Eliminar recordatorio</a>
                     </div>
-                    
+                          
                 </div>
             </div>
 
@@ -158,6 +158,48 @@
                         <h2 class="modal__titulo">Reportar</h2>
                         <p class="modal__descripcion">Selecciona la enfermedad o malestar que queires reportar al
                             doctor:</p>
+                    </div>
+
+                    <div class="modal-cuerpo">
+
+                        <div class="campo">
+                            <div class="campo-titulo">
+                                <label for="name">Malestar/Enfermedad</label>
+                            </div>
+                            <div class="campo-texto">
+                                <select id="campoMalestarComboboxReportar" class="combobox">
+                                    <option>Dolor de cabeza</option>
+                                    <option>Malestar general</option>
+                                    <option>Vomitos</option>
+                                    <option>Nosexd</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="campo">
+                            <div class="campo-titulo">
+                                <label for="name">Redacta una breve descripción del reporte a enviar al doctor</label>
+                            </div>
+                            <div class="campo-texto">
+                                <textarea name="" id="" cols="65" rows="5"></textarea>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-pie">
+                        <button id="btnReportarDatosModal">Guardar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="targetModalAgregarRecordatorio" class="modal">
+                <!-- Modal content -->
+                <div class="modal-contenido">
+                    <div class="modal-cabecera">
+                        <span class="btn-cerrar-modal cerrar-modal-agregar-recordatorio">&times;</span>
+                        <h2 class="modal__titulo">Agregar recordatorio</h2>
+                        <p class="modal__descripcion">Seleccion</p>
                     </div>
 
                     <div class="modal-cuerpo">

@@ -29,7 +29,7 @@ const Modelo = {
     return res;
   },
 
-  async obtenerDatosUsuario(id_patient){
+  async obtenerDatosUsuario(id_patient) {
     const datos_insertar = {
       id_patient: id_patient
     }
@@ -41,7 +41,7 @@ const Modelo = {
     });
 
     return res;
-    
+
   }
 }
 
@@ -90,7 +90,7 @@ const Vista = {
     else if (diaActual > fechaDia) {
       return "Ya pasó"
 
-    }else{
+    } else {
       return "Mañana"
 
     }
@@ -133,15 +133,14 @@ const Vista = {
     console.log(mensaje);
   },
 
-  mostrarInfoUsuario(response){
+  mostrarInfoUsuario(response) {
     datosUsuario = response.data;
-    console.log(datosUsuario)
     nombreUsuario = datosUsuario['name']
     apellidoUsuario = datosUsuario['last_name']
 
     const infoUsuarioContenedor = document.getElementById('infoUsuarioContenedor');
     const parrafo = document.createElement('p');
-    parrafo.textContent = "Bienvenido(a): "+nombreUsuario+" "+apellidoUsuario 
+    parrafo.textContent = "Bienvenido(a): " + nombreUsuario + " " + apellidoUsuario
     infoUsuarioContenedor.append(parrafo)
   },
 
@@ -189,10 +188,39 @@ const Controlador = {
     } catch (err) {
       console.log(err);
     }
-    
+
+  },
+
+  formatearFecha(fechaOriginal) {
+    // Separa la fecha en año, mes y día
+    var año = fechaOriginal.substr(0, 4);
+    var mes = fechaOriginal.substr(4, 2);
+    var día = fechaOriginal.substr(6, 2);
+    // Formatea la fecha en "dd / mm / aaaa"
+    return día + " / " + mes + " / " + año;
+  },
+
+  tomarhoy(fecha) {
+    var fechaActual = new Date();
+    let diaActual = fechaActual.getDate();
+    let fechaDia = fecha.substr(0, 2)
+
+    return fechaDia
   },
 
   async mostrarRecordatoriosCalendario() {
+
+    const id_patient = Vista.getDatosUsuarioRecordatorios();
+    const res = await Modelo.obtenerRecordatorios(id_patient);
+
+    recordatorios = res.data['recordatorios']
+    recordatoriosFecha = []
+    recordatorios.forEach(element => {
+
+      fecha = this.formatearFecha(element.date)
+      fechaHoy = this.tomarhoy(fecha)
+      recordatoriosFecha.push(fechaHoy)
+    });
 
     const daysTag = document.querySelector(".days"),
       currentDate = document.querySelector(".current-date"),
@@ -213,12 +241,14 @@ const Controlador = {
       for (let i = firstDayofMonth; i > 0; i--) { // creating li of previous month last days
         liTag += `<li class="inactive">${lastDateofLastMonth - i + 1}</li>`;
       }
+      
       for (let i = 1; i <= lastDateofMonth; i++) { // creating li of all days of current month
         // adding active class to li if the current day, month, and year matched
         let isToday = i === date.getDate() && currMonth === new Date().getMonth()
           && currYear === new Date().getFullYear() ? "active" : "";
         liTag += `<li class="${isToday}">${i}</li>`;
       }
+
       for (let i = lastDayofMonth; i < 6; i++) { // creating li of next month first days
         liTag += `<li class="inactive">${i - lastDayofMonth + 1}</li>`
       }
@@ -243,14 +273,13 @@ const Controlador = {
     });
   },
 
-  async infoUsuario(){
+  async infoUsuario() {
 
     const id_patient = Vista.getDatosUsuarioRecordatorios();
 
     try {
       const res = await Modelo.obtenerDatosUsuario(id_patient);
       Vista.mostrarInfoUsuario(res)
-
     } catch (err) {
       console.log(err);
     }
@@ -262,7 +291,7 @@ document.addEventListener('DOMContentLoaded', function () {
   Controlador.obtenerRecordatorios();
   Controlador.mostrarRecordatoriosCalendario();
   Controlador.infoUsuario()
-  
+
   /* MODAL Eliminar */
   var modalEliminar = document.getElementById("targetModalInsertar");
   var btnAbrirModalEliminar = document.getElementById("btnAbrirModalInsertar");
