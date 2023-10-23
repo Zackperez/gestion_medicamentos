@@ -30,10 +30,6 @@ const Vista = {
     console.log(mensaje)
   },
 
-  mostrarRecordatorios(){
-
-  },
-
   mostrarMensajeSatisfactorio(mensaje) {
     console.log(mensaje);
   },
@@ -53,10 +49,10 @@ const Controlador = {
       console.log(res)
       if (res.data.acceso == true) {
         const access_token = res.data.access_token;
-        const id_patient = res.data.id_patient;
+        const id_paciente = res.data.id_paciente;
 
         localStorage.setItem("access_token", access_token);
-        localStorage.setItem("id_paciente", id_patient);
+        localStorage.setItem("id_paciente", id_paciente);
         Vista.mostrarMensajeSatisfactorio("Inicio de sesión exitoso");
         Vista.redirigirAIndex();
       } else {
@@ -72,7 +68,7 @@ const Controlador = {
 
   async obtenerTodosAlquileres() {
     try {
-      const response = await Modelo.traerRecordatorios(id_patient);
+      const response = await Modelo.traerRecordatorios(id_paciente);
       Vista.mostrarPropiedades(response.data);
     } catch (err) {
       console.log(err);

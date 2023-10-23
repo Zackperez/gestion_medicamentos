@@ -9,29 +9,29 @@ const Modelo = {
 
     const res = await axios({
       method: "POST",
-      url: "http://127.0.0.1:5000/login",
+      url: "http://127.0.0.1:5000/iniciar-sesion",
       data: datos_insertar
     });
     return res;
   },
 
-  async obtenerRecordatorios(id_patient) {
+  async obtenerRecordatorios(id_paciente) {
 
     const datos_insertar = {
-      id_patient: id_patient
+      id_paciente: id_paciente
     }
 
     const res = await axios({
       method: "POST",
-      url: "http://127.0.0.1:5000/obtener_recordatorio/",
+      url: "http://127.0.0.1:5000/obtener-recordatorio/",
       data: datos_insertar
     });
     return res;
   },
 
-  async obtenerDatosUsuario(id_patient) {
+  async obtenerDatosUsuario(id_paciente) {
     const datos_insertar = {
-      id_patient: id_patient
+      id_paciente: id_paciente
     }
 
     const res = await axios({
@@ -55,9 +55,9 @@ const Vista = {
 
   getDatosUsuarioRecordatorios() {
 
-    if (localStorage.getItem("id_patient")) {
-      const id_patient = localStorage.getItem("id_patient")
-      return id_patient
+    if (localStorage.getItem("id_paciente")) {
+      const id_paciente = localStorage.getItem("id_paciente")
+      return id_paciente
     }
   },
 
@@ -99,10 +99,11 @@ const Vista = {
   mostrarRecordatorios(response) {
     const contenedorRecordatorios = document.getElementById('contenedorRecordatorios');
     data = response.data['recordatorios']
+    console.log(data)
     data.forEach(element => {
       const contenedor = document.createElement('div');
 
-      fechaFormateada = this.formatearFecha(element.date)
+      fechaFormateada = this.formatearFecha(element.fecha)
       tomarHoy = this.tomarhoy(fechaFormateada)
       contenedor.innerHTML =
         `
@@ -112,11 +113,11 @@ const Vista = {
           </div>
 
           <div class="informacion-recordatorio">  
-              <p>${element.information} ${element.medicine}</p>
+              <p>${element.informacion} ${element.medicamento}</p>
           </div>
 
           <div class="informacion-hora">
-              <p>${element.time}</p>
+              <p>${element.hora}</p>
           </div>
 
           <div class="informacion-dia">
@@ -135,8 +136,8 @@ const Vista = {
 
   mostrarInfoUsuario(response) {
     datosUsuario = response.data;
-    nombreUsuario = datosUsuario['name']
-    apellidoUsuario = datosUsuario['last_name']
+    nombreUsuario = datosUsuario['nombre']
+    apellidoUsuario = datosUsuario['apellido']
 
     const infoUsuarioContenedor = document.getElementById('infoUsuarioContenedor');
     const parrafo = document.createElement('p');
@@ -179,10 +180,10 @@ const Controlador = {
 
   async obtenerRecordatorios() {
 
-    const id_patient = Vista.getDatosUsuarioRecordatorios();
+    const id_paciente = Vista.getDatosUsuarioRecordatorios();
 
     try {
-      const res = await Modelo.obtenerRecordatorios(id_patient);
+      const res = await Modelo.obtenerRecordatorios(id_paciente);
       Vista.mostrarRecordatorios(res)
 
     } catch (err) {
@@ -210,14 +211,14 @@ const Controlador = {
 
   async mostrarRecordatoriosCalendario() {
 
-    const id_patient = Vista.getDatosUsuarioRecordatorios();
-    const res = await Modelo.obtenerRecordatorios(id_patient);
+    const id_paciente = Vista.getDatosUsuarioRecordatorios();
+    const res = await Modelo.obtenerRecordatorios(id_paciente);
 
     recordatorios = res.data['recordatorios']
     recordatoriosFecha = []
     recordatorios.forEach(element => {
 
-      fecha = this.formatearFecha(element.date)
+      fecha = this.formatearFecha(element.fecha)
       fechaHoy = this.tomarhoy(fecha)
       recordatoriosFecha.push(fechaHoy)
     });
@@ -275,10 +276,10 @@ const Controlador = {
 
   async infoUsuario() {
 
-    const id_patient = Vista.getDatosUsuarioRecordatorios();
+    const id_paciente = Vista.getDatosUsuarioRecordatorios();
 
     try {
-      const res = await Modelo.obtenerDatosUsuario(id_patient);
+      const res = await Modelo.obtenerDatosUsuario(id_paciente);
       Vista.mostrarInfoUsuario(res)
     } catch (err) {
       console.log(err);
@@ -382,13 +383,11 @@ document.addEventListener('DOMContentLoaded', function () {
     }).then((result) => {
       if (result.isConfirmed) {
         localStorage.removeItem('access_token');
-        localStorage.removeItem('id_patient');
+        localStorage.removeItem('id_paciente');
         location.reload();
       }
     })
 
-
   }
-
 
 })
