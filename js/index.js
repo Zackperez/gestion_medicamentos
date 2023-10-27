@@ -41,11 +41,34 @@ const Modelo = {
     });
 
     return res;
+  },
 
-  }
+
+  async mostrarRecordatoriosEliminar(id_paciente) {
+
+    const datos_insertar = {
+      id_paciente: id_paciente
+    }
+
+    const res = await axios({
+      method: "POST",
+      url: `http://127.0.0.1:5000/obtener-recordatorio/`,
+      data: datos_insertar
+    });
+    return res;
+  },
+
 }
 
 const Vista = {
+/*
+  getIdTicketBuscar: function () {
+    if (localStorage.getItem("id_paciente")) {
+      const id_paciente = localStorage.getItem("id_paciente")
+      return id_paciente
+    }
+  },
+*/
 
   getDatosIniciarSesion() {
     const username = document.querySelector('#username').value;
@@ -54,6 +77,14 @@ const Vista = {
   },
 
   getDatosUsuarioRecordatorios() {
+
+    if (localStorage.getItem("id_paciente")) {
+      const id_paciente = localStorage.getItem("id_paciente")
+      return id_paciente
+    }
+  },
+
+  getDatosUsuarioEliminarRecordatorios() {
 
     if (localStorage.getItem("id_paciente")) {
       const id_paciente = localStorage.getItem("id_paciente")
@@ -152,10 +183,52 @@ const Vista = {
 
   redirigirAIndex() {
     location.href = ("../index.html");
-  }
+  },
+
+  mostrarTickets: function (res) {
+    datos = res.data['recordatorios']
+    console.log(datos)
+    
+    const tablaTickets = document.getElementById('tablaTickets');
+    tablaTickets.innerHTML = ''; // Limpiar contenido existente
+
+    // Crear la fila de encabezados
+    const encabezadoRow = document.createElement('tr');
+    for (const encabezado of Object.keys(datos[0])) {
+      const th = document.createElement('th');
+      th.textContent = encabezado;
+      encabezadoRow.appendChild(th);
+    }
+    tablaTickets.appendChild(encabezadoRow);
+
+    // Crear las filas de datos
+    datos.forEach(dato => {
+      const fila = document.createElement('tr');
+      for (const prop in dato) {
+        const celda = document.createElement('td');
+        celda.textContent = dato[prop];
+        fila.appendChild(celda);
+      }
+      tablaTickets.appendChild(fila);
+    });
+    
+  },
 }
 
 const Controlador = {
+/*
+  async buscarTicketPorId() {
+    const { idTicketBuscar } = Vista.getDatosUsuarioEliminarRecordatorios();
+
+    try {
+      const response = await Modelo.mostrarRecordatoriosEliminar(idTicketBuscar);
+      Vista.mostrarTickets(response.data);
+    } catch (err) {
+      console.log(err);
+      Vista.mostrarMensajeError(err);
+    }
+  },
+*/
 
   async iniciarSesion() {
     const { username, password } = Vista.getDatosIniciarSesion();
@@ -185,6 +258,19 @@ const Controlador = {
     try {
       const res = await Modelo.obtenerRecordatorios(id_paciente);
       Vista.mostrarRecordatorios(res)
+    } catch (err) {
+      console.log(err);
+    }
+
+  },
+
+  async obtenerRecordatoriosEliminar() {
+
+    const id_paciente = Vista.getDatosUsuarioRecordatorios();
+
+    try {
+      const res = await Modelo.obtenerRecordatorios(id_paciente);
+      Vista.mostrarTickets(res)
 
     } catch (err) {
       console.log(err);
@@ -242,7 +328,7 @@ const Controlador = {
       for (let i = firstDayofMonth; i > 0; i--) { // creating li of previous month last days
         liTag += `<li class="inactive">${lastDateofLastMonth - i + 1}</li>`;
       }
-      
+
       for (let i = 1; i <= lastDateofMonth; i++) { // creating li of all days of current month
         // adding active class to li if the current day, month, and year matched
         let isToday = i === date.getDate() && currMonth === new Date().getMonth()
@@ -292,6 +378,26 @@ document.addEventListener('DOMContentLoaded', function () {
   Controlador.obtenerRecordatorios();
   Controlador.mostrarRecordatoriosCalendario();
   Controlador.infoUsuario()
+
+  /* MODAL ELIMINAR RECORDATORIO */
+  var modalEliminarRecordatorio = document.getElementById("targetModalEliminarRecordatorio");
+  var btnAbrirModalEliminarRecordatorio = document.getElementById("btnAbrirModalEliminarRecordatorio");
+  var btnCerrarModalEliminarRecordatorio = document.getElementsByClassName("cerrar-modal-eliminar-recordatorio")[0];
+
+  btnAbrirModalEliminarRecordatorio.onclick = function () {
+    modalEliminarRecordatorio.style.display = "block";
+    Controlador.obtenerRecordatoriosEliminar();
+  }
+
+  btnCerrarModalEliminarRecordatorio.onclick = function () {
+    modalEliminarRecordatorio.style.display = "none";
+  }
+
+  window.onclick = function (event) {
+    if (event.target == modalEliminarRecordatorio) {
+      modalEliminarRecordatorio.style.display = "none";
+    }
+  }
 
   /* MODAL Eliminar */
   var modalEliminar = document.getElementById("targetModalInsertar");
@@ -390,4 +496,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
   }
 
+  const botonActualizarTablaTickets = document.getElementById('botonActualizarTablaTickets');
+
+  botonActualizarTablaTickets.onclick = function () {
+
+    if (Controlador.obtenerRecordatoriosEliminar()) {
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: "Actualizado",
+        showConfirmButton: false,
+        timer: 800
+      })
+    }
+  }
 })

@@ -316,6 +316,69 @@ header .current-date {
 	background: #f2f2f2;
 }
 
+.container {
+    display: grid;
+    grid-template-areas:
+        "botones"
+        "tabla"
+        "paginacion";
+}
+
+
+.botones .boton-cantidad-datos-mostrar,
+.boton-eliminar,
+.boton-busqueda,
+.boton-actualizar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 1vw;
+}
+
+.tabla-tickets {
+    grid-area: tabla;
+    overflow-x: auto;
+}
+
+.tabla-paginacion {
+    grid-area: paginacion;
+    display: grid;
+    place-content: center;
+}
+
+.tabla-tickets .tabla__tickets {
+    border-collapse: collapse;
+    border: 1px solid #ccc;
+    font-family: Arial, sans-serif;
+    height: 40vh;
+	}
+
+#tablaTickets {
+    grid-area: tabla;
+}
+
+#tablaTickets {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+}
+
+#tablaTickets th,
+#tablaTickets td {
+    padding: 0.5vw;
+}
+
+#tablaTickets th {
+    background-color: var(--pink);
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+#tablaTickets tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+
 /* Modal */
 .modal {
 	display: none;

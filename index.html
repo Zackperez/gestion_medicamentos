@@ -233,6 +233,45 @@
                 </div>
             </div>
 
+            <div id="targetModalEliminarRecordatorio" class="modal">
+
+                <!-- Modal content -->
+                <div class="modal-contenido">
+                    <div class="modal-cabecera">
+                        <span class="btn-cerrar-modal cerrar-modal-eliminar-recordatorio">&times;</span>
+                        <h2 class="modal__titulo">Eliminar recordatorio</h2>
+                        <p class="modal__descripcion">Selecciona el id del recordatorio que vas a querer eliminar</p>
+                    </div>
+
+                    <div class="modal-cuerpo">
+
+                        <div class="container">
+                            <div class="botones">
+                                <div class="boton-busqueda">
+                                    <label for="idInput">id recordatorio:</label>
+                                    <input type="text" id="idInput">
+                                    <a id="buscarButton" class="buscar__boton" >Eliminar</a>
+                                </div>
+                            </div>
+                            <div class="tabla-tickets">
+                                <div class="tabla__tickets">
+                                    <table id="tablaTickets">
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="tabla-paginacion">
+                                <div id="paginationContainer" class="tabla__paginacion"></div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-pie">
+                        <button id="btnReportarDatosModal">Salir</button>
+                    </div>
+                </div>
+            </div>
+
         </section>
 
     </div>

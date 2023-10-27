@@ -8,7 +8,6 @@ const Modelo = {
       contrasena: password
     }
 
-    console.log(datos_insertar)
     const res = await axios({
       method: "POST",
       url: "http://127.0.0.1:5000/iniciar-sesion",
@@ -26,6 +25,34 @@ const Vista = {
     return { username, password };
   },
 
+  
+
+  mostrarDatosCSV: function (datos) {
+    const tablaDatosCSV = document.getElementById('tablaDatos');
+    tablaDatosCSV.innerHTML = ''; // Limpiar contenido existente
+
+    // Crear la fila de encabezados
+    const encabezadoRow = document.createElement('tr');
+    for (const encabezado of Object.keys(datos[0])) {
+      const th = document.createElement('th');
+      th.textContent = encabezado;
+      encabezadoRow.appendChild(th);
+    }
+    tablaDatosCSV.appendChild(encabezadoRow);
+
+    // Crear las filas de datos
+    datos.forEach(dato => {
+      const fila = document.createElement('tr');
+      for (const prop in dato) {
+        const celda = document.createElement('td');
+        celda.textContent = dato[prop];
+        fila.appendChild(celda);
+      }
+      tablaDatosCSV.appendChild(fila);
+    });
+
+  },
+
   mostrarMensajeError(mensaje) {
     console.log(mensaje)
   },
@@ -36,7 +63,9 @@ const Vista = {
 
   redirigirAIndex() {
     location.href = ("../index.html");
-  }
+  },
+
+  
 
 }
 
@@ -74,8 +103,7 @@ const Controlador = {
       console.log(err);
       Vista.mostrarMensajeError(err);
     }
-  }
-
+  },
 
 }
 
