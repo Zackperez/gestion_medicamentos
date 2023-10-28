@@ -12,9 +12,11 @@ const Modelo = {
       id_paciente: id_paciente
     }
 
+    console.log(datos_insertar)
+
     const res = await axios({
       method: "POST",
-      url: `http://127.0.0.1:5000/obtener-recordatorio/`,
+      url: `http://127.0.0.1:5000/crear-recordatorio/`,
       data: datos_insertar
     });
     return res;
@@ -22,14 +24,9 @@ const Modelo = {
 
   async obtenerRecordatorios(id_paciente) {
 
-    const datos_insertar = {
-      id_paciente: id_paciente
-    }
-
     const res = await axios({
-      method: "POST",
-      url: "http://127.0.0.1:5000/obtener-recordatorio/",
-      data: datos_insertar
+      method: "GET",
+      url: `http://127.0.0.1:5000/obtener-recordatorio/${id_paciente}`,
     });
     return res;
   },
@@ -53,8 +50,7 @@ const Modelo = {
 
     const res = await axios({
       method: "DELETE",
-      url: `http://127.0.0.1:5000/obtener-recordatorio/${idRecordatorioEliminar}`,
-      data: datos_insertar
+      url: `http://127.0.0.1:5000/eliminar-recordatorio/${idRecordatorioEliminar}`,
     });
     return res;
   },
@@ -78,6 +74,34 @@ const Modelo = {
 }
 
 const Vista = {
+
+  // Funciones externas
+
+  formatearFecha(fechaOriginal) {
+    // Separa la fecha en año, mes y día
+    var año = fechaOriginal.substr(0, 4);
+    var mes = fechaOriginal.substr(4, 2);
+    var día = fechaOriginal.substr(6, 2);
+    // Formatea la fecha en "dd / mm / aaaa"
+    return día + " / " + mes + " / " + año;
+  },
+
+  tomarhoy(fecha) {
+    var fechaActual = new Date();
+    let diaActual = fechaActual.getDate();
+    let fechaDia = fecha.substr(0, 2)
+
+    if (diaActual == fechaDia) {
+      return "Hoy"
+    }
+    else if (diaActual > fechaDia) {
+      return "Ya pasó"
+
+    } else {
+      return "Mañana"
+
+    }
+  },
 
   //Funciones que traen datos
 
@@ -121,38 +145,10 @@ const Vista = {
     return { fecha, hora, medicamento, informacion, id_paciente };
   },
 
-  botonAgregarRecordatorio(){
+  botonAgregarRecordatorio() {
     const btnInsertarDatosRecordatorio = document.querySelector('#btnInsertarDatosRecordatorio');
     btnInsertarDatosRecordatorio.onclick = function () {
       console.log("HOLA")
-    }
-  },
-
-  // Funciones externas
-
-  formatearFecha(fechaOriginal) {
-    // Separa la fecha en año, mes y día
-    var año = fechaOriginal.substr(0, 4);
-    var mes = fechaOriginal.substr(4, 2);
-    var día = fechaOriginal.substr(6, 2);
-    // Formatea la fecha en "dd / mm / aaaa"
-    return día + " / " + mes + " / " + año;
-  },
-
-  tomarhoy(fecha) {
-    var fechaActual = new Date();
-    let diaActual = fechaActual.getDate();
-    let fechaDia = fecha.substr(0, 2)
-
-    if (diaActual == fechaDia) {
-      return "Hoy"
-    }
-    else if (diaActual > fechaDia) {
-      return "Ya pasó"
-
-    } else {
-      return "Mañana"
-
     }
   },
 
@@ -204,7 +200,6 @@ const Vista = {
 
   mostrarTickets: function (res) {
     datos = res.data['recordatorios']
-    console.log(datos)
 
     const tablaTickets = document.getElementById('tablaTickets');
     tablaTickets.innerHTML = ''; // Limpiar contenido existente
@@ -231,23 +226,27 @@ const Vista = {
 
   },
 
-  //Funciones de recordatorios
-
-
 
   // Funciones de estatus
 
   mostrarMensajeError(mensaje) {
     Swal.fire({
       icon: 'error',
-      title: 'Oops...',
+      title: 'Ocurrió un error',
       text: mensaje,
     })
 
   },
 
   mostrarMensajeSatisfactorio(mensaje) {
-    console.log(mensaje);
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: mensaje,
+      showConfirmButton: false,
+      timer: 800
+    })
+
   },
 
   limpiarCampos() {
@@ -261,6 +260,24 @@ const Vista = {
 }
 
 const Controlador = {
+
+  formatearFecha(fechaOriginal) {
+    // Separa la fecha en año, mes y día
+    var año = fechaOriginal.substr(0, 4);
+    var mes = fechaOriginal.substr(4, 2);
+    var dia = fechaOriginal.substr(6, 2);
+    // Formatea la fecha en "dd / mm / aaaa"
+
+    return dia + " / " + mes + " / " + año;
+  },
+
+  tomarhoy(fecha) {
+    var fechaActual = new Date();
+    let diaActual = fechaActual.getDate();
+    let fechaDia = fecha.substr(0, 2)
+
+    return fechaDia
+  },
 
   async iniciarSesion() {
     const { username, password } = Vista.getDatosIniciarSesion();
@@ -285,16 +302,17 @@ const Controlador = {
 
   async agregarRecordatorio() {
     const { fecha, hora, medicamento, informacion, id_paciente } = Vista.getDatosRecordatorioAgregar();
-
-    console.log(fecha)
-    console.log(hora)
-    console.log(medicamento)
-    console.log(informacion)
-    console.log(id_paciente)
-
+    asd = fecha.replace('-','/')
     try {
+      console.log(asd)
 
       //const res = await Modelo.agregarRecordatorio(fecha, hora, medicamento, informacion, id_paciente);
+      //statusRequest = res.request['status']
+      //if (statusRequest){
+      //  Vista.mostrarMensajeSatisfactorio("¡Recordatorio creado!")
+      //}else{
+      //  Vista.mostrarMensajeError("No se pudo crear el recordatorio, intentalo nuevamente")
+      //}
 
     } catch (error) {
       console.log(error)
@@ -404,23 +422,6 @@ const Controlador = {
     }
   },
 
-  formatearFecha(fechaOriginal) {
-    // Separa la fecha en año, mes y día
-    var año = fechaOriginal.substr(0, 4);
-    var mes = fechaOriginal.substr(4, 2);
-    var día = fechaOriginal.substr(6, 2);
-    // Formatea la fecha en "dd / mm / aaaa"
-    return día + " / " + mes + " / " + año;
-  },
-
-  tomarhoy(fecha) {
-    var fechaActual = new Date();
-    let diaActual = fechaActual.getDate();
-    let fechaDia = fecha.substr(0, 2)
-
-    return fechaDia
-  },
-
   async infoUsuario() {
 
     const id_paciente = Vista.getDatosUsuarioRecordatorios();
@@ -432,18 +433,16 @@ const Controlador = {
       console.log(err);
     }
   }
-
-
 }
 
 document.addEventListener('DOMContentLoaded', function () {
 
-  
+
   Controlador.obtenerRecordatorios();
   Controlador.mostrarRecordatoriosCalendario();
   Controlador.infoUsuario()
 
-  botonAgregarRecordatorio()
+  //botonAgregarRecordatorio()
 
 
   /* MODAL ELIMINAR RECORDATORIO */
@@ -564,43 +563,30 @@ document.addEventListener('DOMContentLoaded', function () {
 
   }
 
-  const botonActualizarTablaTickets = document.getElementById('botonActualizarTablaTickets');
-
-  botonActualizarTablaTickets.onclick = function () {
-
-    if (Controlador.obtenerRecordatoriosEliminar()) {
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: "Actualizado",
-        showConfirmButton: false,
-        timer: 800
-      })
-    }
-  }
-
-  const botonEliminarRecordatorioSeleccionado = document.getElementById('botonEliminarRecordatorioSeleccionado');
-
-  botonEliminarRecordatorioSeleccionado.onclick = function () {
-
-    if (Controlador.eliminarRecordatorio()) {
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: "Actualizado",
-        showConfirmButton: false,
-        timer: 800
-      })
-    }
-  }
-
-  const btnInsertarDatosRecordatorio = document.querySelector('#btnInsertarDatosRecordatorio');
-
-  btnInsertarDatosRecordatorio.onclick = function () {
-    console.log("HOLA")
-  }
-
 });
+
+const botonEliminarRecordatorioSeleccionado = document.querySelector("#buscarButton");
+
+botonEliminarRecordatorioSeleccionado.onclick = function () {
+
+  if (Controlador.eliminarRecordatorioSeleccionado()) {
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: "Eliminado",
+      showConfirmButton: false,
+      timer: 800
+    })
+    Controlador.obtenerRecordatoriosEliminar();
+    Controlador.mostrarRecordatoriosCalendario();
+  }
+}
+
+const btnInsertarDatosRecordatorio = document.querySelector('#btnInsertarDatosRecordatorio');
+
+btnInsertarDatosRecordatorio.onclick = function () {
+  Controlador.agregarRecordatorio()
+}
 /*
 
 const modales = {
