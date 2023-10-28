@@ -90,6 +90,23 @@
 
                         <div class="campo">
                             <div class="campo-titulo">
+                                <label for="name">Fecha</label>
+                            </div>
+                            <div class="campo-texto">
+                                <input type="date" id="fechaInsertarRecordatorio" name="name" minlength="5" maxlength="15">
+                            </div>
+                        </div>
+                        <div class="campo">
+                            <div class="campo-titulo">
+                                <label for="name">Hora</label>
+                            </div>
+                            <div class="campo-texto">
+                                <input type="time" id= 'horaInsertarRecordatorio'>
+                            </div>
+                        </div>
+
+                        <div class="campo">
+                            <div class="campo-titulo">
                                 <label for="name">Pastillas/Medicamentos</label>
                             </div>
                             <div class="campo-texto">
@@ -101,50 +118,20 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="campo">
-                            <div class="campo-titulo">
-                                <label for="name">Malestar/Enfermedad</label>
-                            </div>
-                            <div class="campo-texto">
-                                <select id="campoMalestarCombobox" class="combobox">
-                                    <option>Dolor de cabeza</option>
-                                    <option>Malestar general</option>
-                                    <option>Vomitos</option>
-                                    <option>Nosexd</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="campo">
-                            <div class="campo-titulo">
-                                <label for="name">Fecha de inicio</label>
-                            </div>
-                            <div class="campo-texto">
-                                <input type="date" id="kilometraje" name="name" minlength="5" maxlength="15">
-                            </div>
-                        </div>
 
                         <div class="campo">
                             <div class="campo-titulo">
-                                <label for="name">Recordar</label>
+                                <label for="name">Informacion</label>
                             </div>
                             <div class="campo-texto">
-
-                                <input type="checkbox" id="recordatorioDiario" name="name" minlength="5" maxlength="15">
-                                <label for="recordatorio-diario" class="recordatorio-diario">A diario</label> <br>
-
-                                <input type="checkbox" id="recordatorio8Horas" name="name" minlength="5" maxlength="15">
-                                <label for="">Cada 8 horas</label><br>
-
-                                <label for="">Personalizado</label>
-                                <input type="text" id="recordatorioPersonalizado" name="name" minlength="5"
-                                    maxlength="15">
+                                <textarea name="" id="informacionInsertarRecordatorio" cols="65" rows="5"></textarea>
                             </div>
                         </div>
 
                     </div>
 
                     <div class="modal-pie">
-                        <button id="btnInsertarDatosModal">Guardar</button>
+                        <button id="btnInsertarDatosRecordatorio">Crear recordatorio</button>
                     </div>
                 </div>
             </div>
@@ -249,7 +236,7 @@
                             <div class="botones">
                                 <div class="boton-busqueda">
                                     <label for="idInput">id recordatorio:</label>
-                                    <input type="text" id="idInput">
+                                    <input type="text" id="idRecordatorioEliminar">
                                     <a id="buscarButton" class="buscar__boton" >Eliminar</a>
                                 </div>
                             </div>
