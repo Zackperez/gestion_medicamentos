@@ -19,9 +19,10 @@
                     <img src="./img/bloque9.png" alt="">
                 </div>
                 <ul class="menu-lista" id="menuLista">
-                    <li class="menu__item menu__item--active"><a href="#">Inicio</a></li>
+                    <li class="menu__item menu__item--active"><a href="#"><i class="fa-solid fa-house"></i> Inicio</a></li>
                     <!--<li class="menu__item"><a id="btnAbrirModalInsertar">Registrar un seguimiento</a></li>-->
-                    <li class="menu__item"><a id="btnAbrirModalReportar">Reportar malestar</a></li>
+                    <li class="menu__item"><a id="btnAbrirModalReportar"><i class="fa-solid fa-folder-closed"></i> Reportar malestar</a></li>
+                    <li class="menu__item"><a id="btnAbrirModalNotificaciones"><i class="fa-solid fa-bell"></i> Notificaciones</a></li>
                 </ul>
             </nav>
         </header>
@@ -80,8 +81,8 @@
                 <div class="modal-contenido">
                     <div class="modal-cabecera">
                         <span class="btn-cerrar-modal cerrar-modal-insertar">&times;</span>
-                        <h2 class="modal__titulo">Registrar un seguimiento</h2>
-                        <p class="modal__descripcion">Registra un medicamento que empezarás a tomar para obtener un recordatorio de cada cuando tomarlo.
+                        <h2>Registrar un seguimiento</h2>
+                        <p>Registra un medicamento que empezarás a tomar para obtener un recordatorio de cada cuando tomarlo.
                             Recuerda que en la opcion de "Reportar" puedes enviarle este seguimiento al doctor para que esté enterado de tu tratamiento.
                         </p>
                     </div>
@@ -96,6 +97,7 @@
                                 <input type="date" id="fechaInsertarRecordatorio" name="name" minlength="5" maxlength="15">
                             </div>
                         </div>
+
                         <div class="campo">
                             <div class="campo-titulo">
                                 <label for="name">Hora</label>
@@ -141,9 +143,8 @@
                 <div class="modal-contenido">
                     <div class="modal-cabecera">
                         <span class="btn-cerrar-modal cerrar-modal-reportar">&times;</span>
-                        <h2 class="modal__titulo">Reportar</h2>
-                        <p class="modal__descripcion">Selecciona la enfermedad o malestar que queires reportar al
-                            doctor:</p>
+                        <h2>Reportar</h2>
+                        <p>Selecciona la enfermedad o malestar que queires reportar al doctor:</p>
                     </div>
 
                     <div class="modal-cuerpo">
@@ -183,8 +184,8 @@
                 <div class="modal-contenido">
                     <div class="modal-cabecera">
                         <span class="btn-cerrar-modal cerrar-modal-agregar-recordatorio">&times;</span>
-                        <h2 class="modal__titulo">Agregar recordatorio</h2>
-                        <p class="modal__descripcion">Seleccion</p>
+                        <h2">Agregar recordatorio</h2>
+                        <p>Seleccion</p>
                     </div>
 
                     <div class="modal-cuerpo">
@@ -259,11 +260,115 @@
                 </div>
             </div>
 
+            <div id="targetModalNotificaciones" class="modal-notificaciones">
+                <!-- Modal content -->
+                <div class="modal-contenido">
+                    <div class="modal-cabecera">
+                        <span class="btn-cerrar-modal cerrar-modal-notificaciones">&times;</span>
+                        <h2>Centro de notificaciones</h2>
+                    </div>
+
+                    <div class="modal-cuerpo">
+
+                        <div class="contenedor-notificaciones">
+                            <div class="icono">
+                                <i class="fa-solid fa-prescription-bottle-medical fa-3x"></i>
+                            </div>
+    
+                            <div class="titulo">
+                                <p>Retiro de {medicamento}</p>
+                            </div>
+    
+                            <div class="fecha">
+                                <p><i class="fa-regular fa-calendar-days"></i> Dia: 15 Noviembre 2023</p>
+                            </div>
+    
+                            <div class="hora">
+                                <p><i class="fa-solid fa-clock"></i> Hora: 09:30 am</p>
+                            </div>
+    
+                            <div class="lugar">
+                                <p>Lugar: Lorem ipsum dolor sit, amet consectetur adipisicing elit. Harum quia quaerat, ut itaque blanditiis similique?</p>
+                            </div>
+                        </div>
+                        <div class="contenedor-notificaciones">
+                            <div class="icono">
+                                <i class="fa-solid fa-prescription-bottle-medical fa-3x"></i>
+                            </div>
+    
+                            <div class="titulo">
+                                <p>Retiro de {medicamento}</p>
+                            </div>
+    
+                            <div class="fecha">
+                                <p><i class="fa-regular fa-calendar-days"></i> Dia: 15 Noviembre 2023</p>
+                            </div>
+    
+                            <div class="hora">
+                                <p><i class="fa-solid fa-clock"></i> Hora: 09:30 am</p>
+                            </div>
+    
+                            <div class="lugar">
+                                <p>Lugar: Lorem ipsum dolor sit, amet consectetur adipisicing elit. Harum quia quaerat, ut itaque blanditiis similique?</p>
+                            </div>
+                        </div>
+                        <div class="contenedor-notificaciones">
+                            <div class="icono">
+                                <i class="fa-solid fa-prescription-bottle-medical fa-3x"></i>
+                            </div>
+    
+                            <div class="titulo">
+                                <p>Retiro de {medicamento}</p>
+                            </div>
+    
+                            <div class="fecha">
+                                <p><i class="fa-regular fa-calendar-days"></i> Dia: 15 Noviembre 2023</p>
+                            </div>
+    
+                            <div class="hora">
+                                <p><i class="fa-solid fa-clock"></i> Hora: 09:30 am</p>
+                            </div>
+    
+                            <div class="lugar">
+                                <p>Lugar: Lorem ipsum dolor sit, amet consectetur adipisicing elit. Harum quia quaerat, ut itaque blanditiis similique?</p>
+                            </div>
+                        </div>
+                        <div class="contenedor-notificaciones">
+                            <div class="icono">
+                                <i class="fa-solid fa-prescription-bottle-medical fa-3x"></i>
+                            </div>
+    
+                            <div class="titulo">
+                                <p>Retiro de {medicamento}</p>
+                            </div>
+    
+                            <div class="fecha">
+                                <p><i class="fa-regular fa-calendar-days"></i> Dia: 15 Noviembre 2023</p>
+                            </div>
+    
+                            <div class="hora">
+                                <p><i class="fa-solid fa-clock"></i> Hora: 09:30 am</p>
+                            </div>
+    
+                            <div class="lugar">
+                                <p>Lugar: Lorem ipsum dolor sit, amet consectetur adipisicing elit. Harum quia quaerat, ut itaque blanditiis similique?</p>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+                </div>
+            </div>
+
+
         </section>
 
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://kit.fontawesome.com/1a5bcd4a97.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="./js/index.js"></script>
 </body>

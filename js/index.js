@@ -302,17 +302,17 @@ const Controlador = {
 
   async agregarRecordatorio() {
     const { fecha, hora, medicamento, informacion, id_paciente } = Vista.getDatosRecordatorioAgregar();
-    asd = fecha.replace('-','/')
+    // La fecha viene en formato yyyy-mm-dd, se eliminan los guiones medio.
+    fechaFormateadaxd = fecha.replaceAll('-','')
     try {
-      console.log(asd)
 
-      //const res = await Modelo.agregarRecordatorio(fecha, hora, medicamento, informacion, id_paciente);
-      //statusRequest = res.request['status']
-      //if (statusRequest){
-      //  Vista.mostrarMensajeSatisfactorio("¡Recordatorio creado!")
-      //}else{
-      //  Vista.mostrarMensajeError("No se pudo crear el recordatorio, intentalo nuevamente")
-      //}
+      const res = await Modelo.agregarRecordatorio(fechaFormateadaxd, hora, medicamento, informacion, id_paciente);
+      statusRequest = res.request['status']
+      if (statusRequest){
+       Vista.mostrarMensajeSatisfactorio("¡Recordatorio creado!")
+      }else{
+       Vista.mostrarMensajeError("No se pudo crear el recordatorio, intentalo nuevamente")
+      }
 
     } catch (error) {
       console.log(error)
@@ -504,6 +504,25 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
+    /* MODAL Notificaciones */
+    var modalNotificaciones = document.getElementById("targetModalNotificaciones");
+    var btnAbrirModalNotificaciones = document.getElementById("btnAbrirModalNotificaciones");
+    var btnCerrarModalNotificaciones = document.getElementsByClassName("cerrar-modal-notificaciones")[0];
+  
+    btnAbrirModalNotificaciones.onclick = function () {
+      modalNotificaciones.style.display = "block";
+    }
+  
+    btnCerrarModalNotificaciones.onclick = function () {
+      modalNotificaciones.style.display = "none";
+    }
+  
+    window.onclick = function (event) {
+      if (event.target == modalNotificaciones) {
+        modalNotificaciones.style.display = "none";
+      }
+    }
+
 
   //localStorage
 
@@ -528,6 +547,7 @@ document.addEventListener('DOMContentLoaded', function () {
     li.classList.add('menu__item');
     button.setAttribute("id", "IniciarSesion")
     a.setAttribute("href", "./pages/login.html");
+    //<i class="fa-solid fa-right-from-bracket"></i>
     button.appendChild(a)
     li.appendChild(button)
     a.appendChild(document.createTextNode("Iniciar Sesión"));
