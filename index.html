@@ -13,25 +13,39 @@
 <body>
 
     <div class="hero">
-        <header class="menu">
-            <nav class="menu-contenedor">
-                <div class="menu-imagen">
-                    <img src="./img/bloque9.png" alt="">
-                </div>
-                <ul class="menu-lista" id="menuLista">
-                    <li class="menu__item menu__item--active"><a href="#"><i class="fa-solid fa-house"></i> Inicio</a></li>
-                    <!--<li class="menu__item"><a id="btnAbrirModalInsertar">Registrar un seguimiento</a></li>-->
-                    <li class="menu__item"><a id="btnAbrirModalReportar"><i class="fa-solid fa-folder-closed"></i> Reportar malestar</a></li>
-                    <li class="menu__item"><a id="btnAbrirModalNotificaciones"><i class="fa-solid fa-bell"></i> Notificaciones</a></li>
-                </ul>
-            </nav>
-        </header>
 
         <section class="pagina-principal">
 
-            <div class="contenedor">
+            <div class="datos-usuario">
+                <div class="izq">
+                    <div class="foto">
+                        <img src="../img/male-profile.svg" alt="">
+                    </div>
+    
+                    <div class="nombre">
+                        <p>Dr. Jean</p>
+                    </div>
+                </div>
+    
+                <div class="med">
+                    <div class="imagen">
+                        <img src="../img/bloque9.png" alt="">
+                    </div>
+                </div>
+    
+                <div class="der" id="menuDerecha">
+                    <div class="reportar">
+                        <a id="btnAbrirModalReportar"><i class="fa-solid fa-pen-to-square fa-2x"></i></a>
+                    </div>
 
-                <div class="info-usuario" id="infoUsuarioContenedor"></div>
+                    <div class="notificaciones">
+                        <a id="btnAbrirModalNotificaciones"><i class="fa-solid fa-bell fa-2x"></i></a>
+                    </div>
+                </div>
+    
+            </div>
+
+            <div class="contenedor">
 
                 <div class="calendario">
                     <header>
@@ -58,31 +72,31 @@
                 <div class="recordatorios">
 
                     <div class="titulo">
-                        <h1>Recordatorios</h1>
+                        <h1><i class="fa-solid fa-note-sticky"></i> Recordatorios</h1>
                     </div>
 
-                    <div class="informacion" id="contenedorRecordatorios"></div>
+                    <div class="informacion" id="contenedorRecordatorios">
+
+                    </div>
+                    <div class="botones">
+                        <div class="boton-info">
+                            <a id="btnAbrirModalInsertar"><i class="fa-solid fa-plus"></i></a>
+                        </div>
+                        <div class="boton-info">
+                            <a id="btnAbrirModalEliminarRecordatorio"><i class="fa-solid fa-trash"></i></a>        
+                        </div>
+                    </div>
 
                 </div>
 
-                <div class="botones">
-                    <div class="boton-info">
-                        <a id="btnAbrirModalInsertar">Agregar</a>
-                    </div>
-                    <div class="boton-info">
-                        <a id="btnAbrirModalEliminarRecordatorio">Eliminar recordatorio</a>
-                    </div>
-                          
-                </div>
-            </div>
-
+                
             <div id="targetModalInsertar" class="modal">
                 <!-- Modal content -->
                 <div class="modal-contenido">
                     <div class="modal-cabecera">
                         <span class="btn-cerrar-modal cerrar-modal-insertar">&times;</span>
-                        <h2>Registrar un seguimiento</h2>
-                        <p>Registra un medicamento que empezarás a tomar para obtener un recordatorio de cada cuando tomarlo.
+                        <h2>Crear un recordatorio</h2>
+                        <p>Registra un medicamento que empezarás a tomar para crear un recordatorio.
                             Recuerda que en la opcion de "Reportar" puedes enviarle este seguimiento al doctor para que esté enterado de tu tratamiento.
                         </p>
                     </div>
@@ -125,8 +139,8 @@
                             <div class="campo-titulo">
                                 <label for="name">Informacion</label>
                             </div>
-                            <div class="campo-texto">
-                                <textarea name="" id="informacionInsertarRecordatorio" cols="65" rows="5"></textarea>
+                            <div class="campo-texto campo-textarea">
+                                <textarea></textarea>
                             </div>
                         </div>
 
@@ -153,7 +167,7 @@
                             <div class="campo-titulo">
                                 <label for="name">Malestar/Enfermedad</label>
                             </div>
-                            <div class="campo-texto">
+                            <div class="campo-texto campo-combobox">
                                 <select id="campoMalestarComboboxReportar" class="combobox">
                                     <option>Dolor de cabeza</option>
                                     <option>Malestar general</option>
@@ -166,8 +180,8 @@
                             <div class="campo-titulo">
                                 <label for="name">Redacta una breve descripción del reporte a enviar al doctor</label>
                             </div>
-                            <div class="campo-texto">
-                                <textarea name="" id="" cols="65" rows="5"></textarea>
+                            <div class="campo-texto campo-textarea">
+                                <textarea name="" id="" ></textarea>
                             </div>
                         </div>
 
@@ -208,8 +222,8 @@
                             <div class="campo-titulo">
                                 <label for="name">Redacta una breve descripción del reporte a enviar al doctor</label>
                             </div>
-                            <div class="campo-texto">
-                                <textarea name="" id="" cols="65" rows="5"></textarea>
+                            <div class="campo-texto campo-textarea">
+                                <textarea id="informacionInsertarRecordatorio"></textarea>
                             </div>
                         </div>
 
@@ -259,9 +273,13 @@
                     </div>
                 </div>
             </div>
-
+            
             <div id="targetModalNotificaciones" class="modal-notificaciones">
                 <!-- Modal content -->
+                <div class="contenedor-triangulo">
+                    <div class="triangulo"></div>
+                </div>
+                
                 <div class="modal-contenido">
                     <div class="modal-cabecera">
                         <span class="btn-cerrar-modal cerrar-modal-notificaciones">&times;</span>
@@ -355,16 +373,14 @@
                             </div>
                         </div>
 
-
-
                     </div>
 
                 </div>
             </div>
+            </div>
 
 
         </section>
-
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

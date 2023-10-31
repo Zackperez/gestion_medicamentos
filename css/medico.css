@@ -1,1 +1,252 @@
 @import url(./config/global.css);
+
+.contenedor .contenido {
+    display: grid;
+    grid-template-areas:
+        "datos-doctor datos-doctor"
+        "busqueda-paciente reportes"
+        "busqueda-paciente recordatorios"
+        "busqueda-paciente correo";
+    grid-template-columns: 23vw auto;
+    grid-template-rows: 15vh 35vh 40vh auto;
+    row-gap: 2vw;
+    column-gap: 2vw;
+    padding: 1vw;
+    background-color: var(--gris);
+}
+
+.contenedor .contenido .datos-doctor{
+    display: flex;
+    grid-area: datos-doctor;
+    border-radius: 0.5vw;
+    background-color: var(--negro1);
+    padding: 2vw;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.contenedor .contenido .datos-doctor .izq .foto img{
+    height: 8vh;
+    width: auto;
+}
+
+.contenedor .contenido .datos-doctor .izq .nombre p{
+    color: var(--blanco);
+}
+
+.contenedor .contenido .datos-doctor .der{
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 2vw;
+}
+
+.contenedor .contenido .datos-doctor .der .notificaciones i{
+    color: white;
+}
+
+.contenedor .contenido .datos-doctor .der .cerrar-sesion i{
+    color: white;
+}
+
+.contenedor .contenido .datos-doctor .med .imagen img{
+    height: 10vh;
+    width: auto;
+}
+
+
+
+
+/* BUSQUEDA PACIENTE */
+
+.contenedor .contenido .busqueda-paciente {
+    grid-area: busqueda-paciente;
+    border-radius: 0.5vw;
+    background-color: var(--blanco);
+}
+
+.contenedor .contenido .busqueda-paciente .cuadro-busqueda {
+    display: grid;
+    align-items: center;
+    column-gap: 2vw;
+    padding: 1vw;
+}
+
+.contenedor .contenido .busqueda-paciente .cuadro-busqueda .busqueda input {
+    width: 10vw;
+}
+
+.contenedor .contenido .busqueda-paciente .cuadro-busqueda {
+    display: flex;
+    align-items: center;
+}
+
+/* RESULTADO BUSQUEDA */
+
+.contenedor .contenido .resultado-busqueda {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.contenedor .contenido .resultado-busqueda .datos-usuario {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1vw;
+    text-align: center;
+    font-size: 1vw;
+}
+
+.contenedor .contenido .resultado-busqueda .datos-usuario .campo .titulo {
+    font-size: 1.2vw;
+}
+
+.contenedor .contenido .resultado-busqueda .datos-usuario .campo .texto {
+    color: var(--gris2);
+}
+
+.contenedor .contenido .resultado-busqueda .foto-usuario img {
+    height: 20vh;
+    width: auto;
+}
+
+.contenedor .contenido .busqueda-paciente .cuadro-busqueda .titulo {
+    font-size: 1vw;
+}
+
+/* REPORTES */
+
+.contenedor .contenido .reportes-paciente {
+    grid-area: reportes;
+    background-color: var(--blanco);
+    border-radius: 0.5vw;
+    padding: 1vw;
+}
+
+/* RECORDATORIOS */
+
+.contenedor .contenido .recordatorios-paciente {
+    grid-area: recordatorios;
+    background-color: var(--blanco);
+    border-radius: 0.5vw;
+    padding: 1vw;
+    overflow: auto;
+}
+
+button {
+    padding: 1vw;
+}
+
+.contenedor .contenido .recordatorios-paciente .contenedor {
+
+    display: flex;
+    padding: 1vw;
+    flex-wrap: wrap;
+    row-gap: 2vw;
+}
+
+.contenedor .contenido .recordatorios-paciente .contenedor .recordatorio {
+    display: flex;
+    column-gap: 2vw;
+    row-gap: 2vw;
+}
+
+/* CORREO */
+
+.contenedor .contenido .redactar-correo {
+    grid-area: correo;
+    background-color: var(--blanco);
+    border-radius: 0.5vw;
+    padding: 1vw;
+}
+
+.contenedor .contenido .recordatorios-paciente, .reportes-paciente .titulo-cuadro p{
+    font-size: 1.5vw;
+}
+
+.contenedor .contenido .redactar-correo .contenedor {
+    display: grid;
+    grid-template-areas:
+        "destinario correo"
+        "asunto correo"
+        "asunto boton";
+    grid-template-columns: 30vw 10vw;
+    padding: 2vw;
+    align-items: center;
+}
+
+.contenedor .contenido .redactar-correo .contenedor .destinario {
+    grid-area: destinario;
+}
+
+.contenedor .contenido .redactar-correo .contenedor .asunto {
+    grid-area: asunto;
+}
+
+.contenedor .contenido .redactar-correo .contenedor .texto-correo {
+    grid-area: correo;
+}
+
+.contenedor .contenido .redactar-correo .contenedor .botones {
+    grid-area: boton;
+}
+
+.contenedor .contenido .redactar-correo .contenedor .texto-correo .texto textarea {
+    resize: none;
+    width: 35vw;
+    height: 12vh;
+}
+
+#tablaReportes {
+    grid-area: tabla;
+}
+
+#tablaReportes {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+}
+
+#tablaReportes th,
+#tablaReportes td {
+    padding: 0.5vw;
+    text-align: center;
+    font-size: 1vw;
+}
+
+#tablaReportes th {
+    background-color: var(--pink);
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+#tablaReportes tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+#tablaRecordatorios {
+    grid-area: tabla;
+}
+
+#tablaRecordatorios {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+}
+
+#tablaRecordatorios th,
+#tablaRecordatorios td {
+    padding: 0.5vw;
+    text-align: center;
+    font-size: 1vw;
+}
+
+#tablaRecordatorios th {
+    background-color: var(--pink);
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+#tablaRecordatorios tr:nth-child(even) {
+    background-color: #f9f9f9;
+}

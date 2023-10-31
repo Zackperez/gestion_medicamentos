@@ -1,174 +1,151 @@
 @import url(./config/global.css);
 
-.principal-contenido{
-    display: grid;
-    grid-template-areas: 
+.hero{
+  display: grid;
+  height: 100vh;
+  place-content: center;
+  background-color: var(--negro1);
+}
+
+.hero .contenido {
+  display: grid;
+  grid-template-areas:
     'imagen textos'
     'imagen botones';
-    grid-template-columns: 1fr 1fr;
-    align-items: center;
-    justify-items: center;
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
+  padding: 4vw 2vw;
+  border-radius: 0.5vw;
+  background-color: var(--blanco);
 }
 
-.principal-imagen{
-    grid-area: imagen;
+.hero .contenido .imagen {
+  grid-area: imagen;
 }
 
-.principal-textos{
-    grid-area: textos;
+.hero .contenido .imagen img{
+  height: 70vh;
+  width: auto;
+  color: black;
 }
 
-.principal-botones{
-    grid-area: botones;
-    display: flex;
-    align-items: center;
-    justify-content: start;
-    column-gap: 1vw;
+.hero .contenido .textos {
+  text-align: center;
+  grid-area: textos;
 }
 
-.principal-botones a {
-    text-align: center;
-    padding: 0.7vw 2.5vw;
-    border-radius: 0.5vw;
-    text-decoration: none;
-    font-weight: bold;
-    color: black;
-    background-color: var(--anaranjado);
+.hero .contenido .textos .imagen-ips img{
+  height: 30vh;
+  width: auto;
 }
 
-.principal-botones a:hover {
-    background-color: rgb(250, 156, 171);
+.hero .contenido .botones {
+  grid-area: botones;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  column-gap: 1vw;
+}
+
+.hero .contenido .botones a {
+  text-align: center;
+  padding: 0.7vw 2.5vw;
+  border-radius: 0.5vw;
+  text-decoration: none;
+  font-weight: bold;
+  color: black;
+  background-color: var(--anaranjado);
+}
+
+.hero .contenido .botones a:hover {
+  background-color: rgb(250, 156, 171);
 }
 
 /* MODAL */
 
-.modal {
-    display: none;
-    /* POr defecto no se muestran en pantalla hasta que se abran */
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgb(0, 0, 0);
-    background-color: rgba(0, 0, 0, 0.4);
-  }
-  
-  .modal-modificar .modal-contenido {
-    height: 80vh;
-  }
-  
-  .modal-modificar .modal-cuerpo {
-    display: flex;
-    column-gap: 2vw;
-    margin-left: 5vw;
-    align-content: center;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: flex-start;
-  }
-  
-  .modal-contenido {
-    display: grid;
-    height: 75vh;
-    background-color: #fefefe;
-    margin: 2% auto;
-    padding: 20px;
-    width: 50%;
-    border-radius: 0.4vw;
-  }
+.hero .modal {
+  display: none;
+  /* POr defecto no se muestran en pantalla hasta que se abran */
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+}
 
-  .modal-contenido .modal-cabecera .modal__descripcion{
-    padding: 1.5vw 1vw;
-    text-align: start;
-  }
-  
-  .modal-consultar .modal-cuerpo .campo .campo-id {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-  }
-  
-  .campo__botones .fa-solid {
-    color: #131417;
-  }
-  
-  .modal-cabecera {
-    text-align: center;
-  }
-  
-  .modal__titulo {
-    font-size: 5vh;
-    text-align: start;
-  }
-  
-  .modal__descripcion {
-    color: #4e4e4e;
-    font-size: 1.2vw;
-    padding: 0 2vw;
-  }
-  
-  .combobox {
-    width: 20vw;
-    padding: 12px 20px;
-    margin: 8px 0;
-    box-sizing: border-box;
-  }
-  
-  .modal-cuerpo {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    align-content: center;
-    padding: 0 3vw;
-    column-gap: 2vw;
-  }
-  
-  /* The Close Button */
-  .btn-cerrar-modal {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-  }
-  
-  .btn-cerrar-modal:hover,
-  .btn-cerrar-modal:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-  }
+.hero .modal-contenido {
+  display: grid;
+  height: 50vh;
+  background-color: #fefefe;
+  margin: 2% auto;
+  padding: 20px;
+  width: 50%;
+  border-radius: 0.4vw;
+}
 
-  input[type = text], input[type = date]{ 
-    background-color: var(--anaranjado);
-    border: none;
-  }
+.hero .modal-contenido .modal-cabecera h2 {
+  padding: 1.5vw 1vw;
+  text-align: start;
+}
 
-  select{
-    background-color: var(--anaranjado);
-    border: none;
-  }
-  
-  input[type=text], input[type=date] {
-    width: 20vw;
-    padding: 12px 20px;
-    margin: 8px 0;
-    box-sizing: border-box;
-  }
-  
-  .modal-pie {
-    display: flex;
-    justify-content: end;
-    align-items: center;
-  }
-  
-  .modal-pie button {
-    margin-right: 3.1vw;
-    background-color: var(--anaranjado);
-    padding: 0.5vw 3vw;
-    border-radius: 0.5vw;
-    font-weight: bold;
-    cursor: pointer;
-    border: none;
-  }
+.hero .modal-contenido .modal-cabecera {
+  text-align: center;
+}
+
+.hero .modal-contenido .modal-cabecera h2 {
+  font-size: 5vh;
+  text-align: start;
+}
+
+.hero .modal-contenido .modal-cuerpo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  align-content: center;
+  padding: 0 3vw;
+  column-gap: 2vw;
+}
+
+/* The Close Button */
+.hero .modal-contenido .modal-cabecera .btn-cerrar-modal {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.hero .modal-contenido .modal-cabecera .btn-cerrar-modal:hover,
+.hero .modal-contenido .modal-cabecera .btn-cerrar-modal:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+input[type=text],
+input[type=date] {
+  background-color: var(--anaranjado);
+  border: none;
+  width: 20vw;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+
+.hero .modal-contenido .modal-pie {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.hero .modal-contenido .modal-pie button {
+  margin-right: 3.1vw;
+  background-color: var(--anaranjado);
+  padding: 0.5vw 3vw;
+  border-radius: 0.5vw;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+}

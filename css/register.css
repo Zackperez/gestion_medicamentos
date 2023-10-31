@@ -1,0 +1,119 @@
+@import url(./config/global.css);
+
+
+.hero .cabecera {
+    display: grid;
+    background-color: var(--negro1);
+    padding: 0.5vw 2vw;
+}
+
+.hero .cabecera .boton-retroceder a {
+    font-size: 2vw;
+    color: var(--blanco);
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.hero .cabecera p {
+    color: var(--blanco);
+    font-size: 2vw;
+    font-weight: 500;
+}
+
+.hero .registro-usuario {
+    grid-area: registro-usuario;
+    display: grid;
+    place-content: center;
+}
+
+.registro-usuario .contenido {
+    padding: 2vw;
+    display: grid;
+    grid-template-areas:
+        "informacion datos-sesion"
+        "informacion datos-usuario"
+        "botones botones";
+    grid-template-rows: auto;
+    grid-template-columns: 30vw 50vw;
+    column-gap: 2vw;
+    row-gap: 5vw;
+}
+
+.registro-usuario .contenido .datos-sesion{
+    display: grid;
+    grid-area: datos-sesion;
+    row-gap: 2vw;
+
+}
+
+.registro-usuario .contenido .datos-sesion .contenedor{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 0 3vw;
+}
+
+.registro-usuario .contenido .datos-sesion .descripcion p{
+    font-size: 2vw;
+}
+
+.registro-usuario .contenido .informacion-registro {
+    position: fixed;
+    grid-area: informacion;
+}
+
+.registro-usuario .contenido .informacion-registro .imagen img {
+    height: 30vh;
+    width: auto;
+}
+
+.registro-usuario .contenido .informacion-registro .descripcion {
+    width: 30vw;
+}
+
+.registro-usuario .contenido .datos-usuario{
+    grid-area: datos-usuario;
+    display: grid;
+    row-gap: 2vw;
+}
+
+.registro-usuario .contenido .datos-usuario .descripcion{
+    font-size: 2vw;
+}
+
+.registro-usuario .contenido .datos-usuario .contenedor{
+    padding: 0 3vw;
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 2vw;
+    justify-content: space-between;
+}
+
+input[type=text],
+input[type=date],
+input[type=time],
+input[type=email],
+input[type=tel],
+select {
+    border: none;
+    border-bottom: 1px solid black;
+    width: 20vw;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
+
+.registro-usuario .contenido .botones{
+    grid-area: botones;
+    text-align: end;
+}
+
+.registro-usuario .contenido .botones button{
+    background-color: var(--anaranjado);
+    border: none;
+    width: 20vw;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
+

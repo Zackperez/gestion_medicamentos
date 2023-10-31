@@ -1,0 +1,150 @@
+@import url(./config/global.css);
+
+.hero {
+	display: grid;
+	grid-template-areas:
+		"menu"
+		"perfil-usuario";
+	grid-template-columns: 1fr;
+	grid-template-rows: auto 90vh;
+}
+
+/* CONTENIDO MENU */
+
+.menu {
+	grid-area: menu;
+	display: grid;
+	height: 10vh;
+	background-color: var(--negro1);
+}
+
+.menu-contenedor {
+	display: grid;
+	grid-template-areas:
+		"imagen enlaces";
+	align-items: center;
+	justify-content: space-between;
+	margin-left: 5vw;
+	margin-right: 5vw;
+}
+
+.menu-imagen {
+	grid-area: imagen;
+}
+
+.menu-imagen img {
+	height: 7vh;
+	width: auto;
+}
+
+.menu-lista {
+	grid-area: enlaces;
+}
+
+.menu-contenedor .menu-lista {
+	display: flex;
+}
+
+.menu-contenedor .menu-lista .menu__item {
+	color: var(--blanco);
+}
+
+.menu-contenedor .menu-lista .menu__item a {
+	font-size: 1.5vw;
+	margin-left: 2vw;
+	color: var(--blanco);
+}
+
+.menu-contenedor .menu-lista .menu__item a:hover {
+	color: var(--anaranjado);
+}
+
+.menu-contenedor .menu-lista .menu__item--active a {
+	font-weight: bold;
+	/*border-bottom: 1px solid var(--blanco); */
+	color: var(--anaranjado);
+}
+
+.perfil-usuario {
+	grid-area: perfil-usuario;
+	display: grid;
+	place-content: center;
+	background-color: var(--gris);
+}
+
+.perfil-usuario .contenido{
+	display: grid;
+	grid-template-areas: 
+	"titulo titulo"
+	"foto informacion";
+	grid-template-rows: 15vh auto;
+	grid-template-columns: 30vw 50vw;
+	padding: 2vw;
+	height: auto;
+	min-height: 70vh;
+	width: 80vw;
+	border-radius: 0.5vw;
+	background-color: var(--blanco);
+}
+
+.perfil-usuario .contenido .titulo-central{
+	display: grid;
+	grid-area: titulo;
+	margin-left: 5vw;
+	align-items: center;
+}
+
+.perfil-usuario .contenido .titulo-central p{
+	font-size: 2vw;
+	font-weight: 400;
+}
+
+.perfil-usuario .contenido .contenedor-foto-perfil{
+	grid-area: foto;
+	display: grid;
+	justify-content: center;
+}
+
+.perfil-usuario .contenido .contenedor-foto-perfil .foto-perfil img{
+	height: 35vh;
+	width: auto;
+}
+
+.perfil-usuario .contenido .contenedor-informacion{
+	display: grid;
+	grid-area: informacion;
+	row-gap: 2vw;
+}
+
+.perfil-usuario .contenido .contenedor-informacion .botones-perfil{
+	text-align: end;
+}
+
+.perfil-usuario .contenido .contenedor-informacion .botones-perfil button{
+	background-color: var(--anaranjado);
+	border: none;
+	border-radius: 0.5vw;
+	padding: 1vw 2vw;
+	box-sizing: border-box;
+	cursor: pointer;
+	font-size: 1vw;
+}
+
+.perfil-usuario .contenido .contenedor-informacion .informacion-perfil{
+	display: flex;
+	flex-wrap: wrap;
+	column-gap: 5vw;
+	row-gap: 4vw;
+}
+
+.perfil-usuario .contenido .contenedor-informacion .informacion-perfil .campo .titulo p{
+	font-size: 1.4vw;
+}
+
+.perfil-usuario .contenido .contenedor-informacion .informacion-perfil .campo .texto p{
+	font-size: 1.2vw;
+	color: #888888;
+}
+
+
+

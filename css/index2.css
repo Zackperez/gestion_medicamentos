@@ -1,26 +1,18 @@
 @import url(./config/global.css);
 
-/* CONTENIDO MENU */
-
-.pagina-principal{
-	display: grid;
-	padding: 1vw;
-}
-
-.pagina-principal .datos-usuario{
-	height: 5vh;
-}
-
-.contenedor {
-	display: grid;
-	grid-template-areas:
-		"imagen textos";
-	grid-template-rows: 15vh 50vh;
-	margin: 2vw 5vw;
-	column-gap: 2vw;
+.hero .pagina-principal{
+    display: grid;
+    grid-template-areas: 
+    "datos-usuario"
+    "contenido";
+    grid-template-rows: 15vh 80vh;
+    padding: 1vw;
+    background-color: var(--gris);
+    row-gap: 2vw;
 }
 
 .hero .pagina-principal .datos-usuario{
+    grid-area: datos-usuario;
     display: flex;
     border-radius: 0.5vw;
     background-color: var(--negro1);
@@ -28,15 +20,6 @@
     align-items: center;
     justify-content: space-between;
     flex-direction: row;
-}
-
-.hero .pagina-principal .datos-usuario .izq{
-	text-align: center;
-}
-
-.hero .pagina-principal .datos-usuario .izq .foto img{
-    height: 8vh;
-    width: auto;
 }
 
 .hero .pagina-principal .datos-usuario .izq .nombre p{
@@ -49,25 +32,33 @@
     column-gap: 2vw;
 }
 
-.hero .pagina-principal .datos-usuario .der .reportar i{
+.datos-usuario .der .reportar i{
     color: white;
 }
 
-.hero .pagina-principal .datos-usuario .der .notificaciones i{
+.datos-usuario .der .notificaciones i{
     color: white;
 }
 
-.hero .pagina-principal .datos-usuario .der .cerrar-sesion i{
+.datos-usuario .der .cerrar-sesion i{
     color: white;
 }
 
-.hero .pagina-principal .datos-usuario .der .iniciar-sesion i{
-    color: white;
+.hero .pagina-principal .datos-usuario .izq .foto img{
+    height: 8vh;
+    width: auto;
 }
-
 .hero .pagina-principal .datos-usuario .med .imagen img{
     height: 10vh;
     width: auto;
+}
+
+.hero .pagina-principal .contenedor{
+    grid-area: contenido;
+    display: grid;
+	grid-template-areas:
+		"imagen textos";
+	grid-template-rows: 15vh 50vh;
 }
 
 .contenedor .recordatorios {
@@ -77,59 +68,57 @@
 		"titulo botonesRecordatorio"
 		"informacion informacion";
 	column-gap: 5vw;
-	grid-template-columns: 1fr 1fr;
-	row-gap: 2vh;
-	grid-template-rows: 10vh 45vh;
 }
 
-.contenedor .recordatorios .titulo {
+.recordatorios .titulo {
 	grid-area: titulo;
 }
 
-.contenedor .recordatorios .titulo h1{
+.recordatorios .titulo h1{
 	font-size: 2.3vw;
 	color: var(negro1);
 }
 
-.contenedor .recordatorios .informacion {
+
+.recordatorios .informacion {
 	grid-area: informacion;
-	row-gap: 5vh;
 	display: grid;
+	row-gap: 2vw;
 	overflow-y: auto;
 }
 
-.contenedor .recordatorios .informacion .datos-recordatorio {
-    display: grid;
-    grid-template-areas:
-        "fecha hora"
-        "informacion dia";
-    column-gap: 2vw;
-    justify-content: center;
+.recordatorios .informacion .contenedor {
+	display: grid;
+	grid-template-areas:
+		"fecha hora"
+		"informacion dia";
+	grid-template-rows: 7vh 10vh;
+	column-gap: 2vw;
 }
 
-.contenedor .recordatorios .informacion .informacion-hora,
+.recordatorios .informacion .informacion-hora,
 .informacion-dia {
 	display: grid;
 	justify-content: center;
 	align-items: center;
 }
 
-.contenedor .recordatorios .informacion .informacion-fecha,
+.recordatorios .informacion .informacion-fecha,
 .informacion-recordatorio {
 	padding: 0 1vw;
 }
 
-.contenedor .recordatorios .informacion .informacion-fecha {
+.recordatorios .informacion .informacion-fecha {
 	grid-area: fecha;
 	display: grid;
 	align-items: center;
 }
 
-.contenedor .recordatorios .informacion .informacion-recordatorio {
+.recordatorios .informacion .informacion-recordatorio {
 	grid-area: informacion;
 }
 
-.contenedor .recordatorios .informacion .informacion-hora {
+.recordatorios .informacion .informacion-hora {
 	border-left: 1px solid black;
 	grid-area: hora;
 }
@@ -140,28 +129,28 @@
 	width: 10vw;
 }
 
-.contenedor .recordatorios .informacion .informacion-fecha p {
+.recordatorios .informacion .informacion-fecha p {
 	font-size: 1.6vw;
 	font-weight: bold;
 }
 
-.contenedor .recordatorios .informacion .informacion-recordatorio {
+.recordatorios .informacion .informacion-recordatorio {
 	width: 20vw;
 }
 
-.contenedor .recordatorios .informacion .informacion-recordatorio p {
+.recordatorios .informacion .informacion-recordatorio p {
 	font-size: 1.15vw;
 }
 
-.contenedor .recordatorios .informacion .informacion-hora p {
+.recordatorios .informacion .informacion-hora p {
 	font-size: 2.2vw;
 }
 
-.contenedor .recordatorios .informacion .informacion-dia p {
+.recordatorios .informacion .informacion-dia p {
 	font-size: 1.7vw;
 }
 
-.contenedor .recordatorios .botones {
+.recordatorios .botones {
 	grid-area: botonesRecordatorio;
 	display: flex;
 	column-gap: 1vw;
@@ -169,7 +158,7 @@
 	justify-content: end;
 }
 
-.contenedor .recordatorios .botones a {
+.recordatorios .botones a {
 	text-align: center;
 	padding: 0.7vw 1vw;
 	border-radius: 0.5vw;
@@ -179,7 +168,7 @@
 	background-color: var(--anaranjado);
 }
 
-.contenedor .recordatorios .botones a:hover {
+.recordatorios .botones a:hover {
 	background-color: rgb(250, 156, 171);
 }
 
@@ -296,6 +285,7 @@ header .current-date {
         "tabla"
         "paginacion";
 }
+
 
 .botones .boton-cantidad-datos-mostrar,
 .boton-eliminar,
@@ -477,9 +467,9 @@ select{
 .triangulo {
 	border-left: 15px solid transparent;
 	border-right: 15px solid transparent;
-	border-bottom: 20px solid var(--gris);
-	margin-left: 90.5vw;
-	margin-top: 11vh;
+	border-bottom: 20px solid #e4e1e1;
+	margin-left: 77vw;
+	margin-top: 8vh;
   }
 
 .modal-notificaciones {
@@ -491,6 +481,7 @@ select{
 	top: 0;
 	width: 100%;
 	height: 100%;
+	background-color: rgb(0, 0, 0);
 	background-color: rgba(0, 0, 0, 0.4);
 }
 
@@ -500,7 +491,7 @@ select{
 	align-content: start;
 	height: 70vh;
 	width: 55vw;
-	margin: 6.5% 40%;
+	margin: 5% 30%;
 	padding: 0;
 }
 

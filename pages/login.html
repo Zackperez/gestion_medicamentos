@@ -7,31 +7,34 @@
     <link rel="stylesheet" href="../css/login.css">
     <!-- Estilos externos -->
 
-    <title>Document</title>
+    <title>Inicio de sesión</title>
 </head>
 <body>
     
     <div class="hero">
 
-        <div class="principal-contenedor">
-            <div class="principal-contenido">
+        <div class="contenedor">
+            <div class="contenido">
 
-                <div class="principal-imagen">
-                    <img src="../img/bienvenida.png" alt="Imagen de bienvenida">
+                <div class="imagen">
+                    <img src="../img/login.svg" alt="Imagen de bienvenida">
                 </div>
 
-                <div class="principal-textos">
+                <div class="textos">
                     <div class="titulo"> 
-                        <h1>Control de medicamentos</h1>
+                        <h1>Control y seguimiento de pacientes</h1>
+                    </div>
+                    <div class="imagen-ips">
+                        <img src="../img/coomeva.png" alt="Coomeva logo">
                     </div>
                 </div>
 
-                <div class="principal-botones">
+                <div class="botones">
                     <div class="boton-iniciar-sesion">
                         <a href="#" id= "btnAbrirIniciarSesionModal">Iniciar sesión</a>
                     </div>
                     <div class="boton-registrarse">
-                        <a href="" id = "botonRegistrarse">Registrarse</a>
+                        <a href="./registro.html" id = "botonRegistrarse">Registrarse</a>
                     </div>
                 </div>
 
@@ -43,15 +46,14 @@
             <div class="modal-contenido">
                 <div class="modal-cabecera">
                     <span class="btn-cerrar-modal cerrar-modal-iniciar-sesion">&times;</span>
-                    <h2 class="modal__titulo">CONTROL</h2>
-                    <p class="modal__descripcion"></p>
+                    <h2>Inicio de sesión</h2>
                 </div>
 
                 <div class="modal-cuerpo">
 
                     <div class="campo">
                         <div class="campo-titulo">
-                            <label for="name">Usuario</label>
+                            <label for="name">Usuario:</label>
                         </div>
                         <div class="campo-texto">
                             <input type="text" id="userName" name="name" minlength="5" maxlength="15">
@@ -60,7 +62,7 @@
 
                     <div class="campo">
                         <div class="campo-titulo">
-                            <label for="name">Contraseña</label>
+                            <label for="name">Contraseña:</label>
                         </div>
 
                         <div class="campo-texto">
@@ -71,7 +73,7 @@
                 </div>
 
                 <div class="modal-pie">
-                    <button id="btnIniciarSesionModal">Guardar</button>
+                    <button id="btnIniciarSesionModal">Iniciar sesión</button>
                 </div>
             </div>
         </div>

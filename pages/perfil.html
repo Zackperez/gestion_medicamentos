@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/perfil.css">
+
+    <title>Perfil</title>
+</head>
+
+<body>
+    <div class="hero">
+        <header class="menu">
+            <nav class="menu-contenedor">
+                <div class="menu-imagen">
+                    <img src="../img/bloque9.png" alt="">
+                </div>
+                <ul class="menu-lista" id="menuLista">
+                    <li class="menu__item"><a href="../index.html"><i class="fa-solid fa-house"></i> Inicio</a></li>
+                    <li class="menu__item"><a id="btnAbrirModalReportar"><i class="fa-solid fa-folder-closed"></i>
+                            Reportar seguimiento</a></li>
+                    <li class="menu__item"><a id="btnAbrirModalNotificaciones"><i class="fa-solid fa-bell"></i>
+                            Notificaciones</a></li>
+                    <li class="menu__item menu__item--active"><a href="./perfil.html"><i class="fa-solid fa-user"></i>
+                            Perfil</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <section class="perfil-usuario">
+            <div class="contenido">
+
+                <div class="titulo-central">
+                    <p>Información del usuario</p>
+                </div>
+
+                <div class="contenedor-foto-perfil">
+                    <div class="foto-perfil">
+                        <img src="../img/male-profile.svg" alt="">
+                    </div>
+                </div>
+
+                <div class="contenedor-informacion">
+                    <div class="informacion-perfil" id="informacionPerfil"></div>
+
+                    <div class="botones-perfil">
+                        <button><i class="fa-solid fa-pen-to-square"></i> Editar perfil</button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://kit.fontawesome.com/1a5bcd4a97.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../js/perfil.js"></script>
+</body>
+
+</html>

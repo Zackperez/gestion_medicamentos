@@ -1,7 +1,7 @@
 @import url(normalice.css);
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
 
-*{
+* {
     padding: 0;
     margin: 0;
     text-decoration: none;
@@ -10,15 +10,31 @@
     line-height: 1.6;
 }
 
-:root{
-    /*--blanco: rgb(255, 255, 255);*/
-    --blanco: white;
-    --negro: rgb(30, 30, 30);
-    --grisClaro: rgb(108, 108, 108);
-    --anaranjado: #FFBD59;
+a {
+    cursor: pointer;
 }
 
-.btn{
+button {
+    background-color: transparent;
+    border: none;
+}
+
+:root {
+    /*--blanco: rgb(255, 255, 255);*/
+    --blanco: white;
+    --negro: #272848;
+    --negro1: rgb(30, 30, 30);
+    --grisClaro: rgb(108, 108, 108);
+    --azul: #54C1FB;
+    --azulado: #6d71f9;
+    --gris: #EFF0F8;
+    --cristal: #FFFFFF;
+    --anaranjado: #FFBD59;
+    --gris2: #888888;
+
+}
+
+.btn {
     margin-left: 1vw;
     padding: 0.7vw 3vw;
     border: 0;
@@ -30,4 +46,26 @@
     font-weight: 500;
     white-space: nowrap;
     cursor: pointer;
+}
+
+input[type=text],
+input[type=date],
+input[type=time],
+input[type=email],
+select {
+    background-color: var(--anaranjado);
+    border: none;
+    width: 20vw;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
+
+button{
+    margin-right: 3.1vw;
+	background-color: var(--anaranjado);
+	padding: 0.5vw 3vw;
+	border-radius: 0.5vw;
+	font-weight: bold;
+	cursor: pointer;
 }

@@ -3,7 +3,6 @@ const Modelo = {
   // Funciones de recordatorios
 
   async agregarRecordatorio(fecha, hora, medicamento, informacion, id_paciente) {
-
     const datos_insertar = {
       fecha: fecha,
       hora: hora,
@@ -58,14 +57,10 @@ const Modelo = {
   // Funciones de usuario
 
   async obtenerDatosUsuario(id_paciente) {
-    const datos_insertar = {
-      id_paciente: id_paciente
-    }
 
     const res = await axios({
-      method: "POST",
-      url: "http://127.0.0.1:5000/buscar-paciente/",
-      data: datos_insertar
+      method: "GET",
+      url: `http://127.0.0.1:5000/buscar-paciente/${id_paciente}`,
     });
 
     return res;
@@ -145,17 +140,10 @@ const Vista = {
     return { fecha, hora, medicamento, informacion, id_paciente };
   },
 
-  botonAgregarRecordatorio() {
-    const btnInsertarDatosRecordatorio = document.querySelector('#btnInsertarDatosRecordatorio');
-    btnInsertarDatosRecordatorio.onclick = function () {
-      console.log("HOLA")
-    }
-  },
-
   // Funciones que muestran la vista
 
   mostrarRecordatorios(response) {
-    const contenedorRecordatorios = document.getElementById('contenedorRecordatorios');
+    const contenedorRecordatorios = document.querySelector('#contenedorRecordatorios');
     data = response.data['recordatorios']
     data.forEach(element => {
       const contenedor = document.createElement('div');
@@ -164,7 +152,7 @@ const Vista = {
       tomarHoy = this.tomarhoy(fechaFormateada)
       contenedor.innerHTML =
         `
-        <div class="contenedor">
+        <div class="datos-recordatorio">
           <div class="informacion-fecha">
               <p>${fechaFormateada}</p>
           </div>
@@ -226,7 +214,6 @@ const Vista = {
 
   },
 
-
   // Funciones de estatus
 
   mostrarMensajeError(mensaje) {
@@ -279,39 +266,18 @@ const Controlador = {
     return fechaDia
   },
 
-  async iniciarSesion() {
-    const { username, password } = Vista.getDatosIniciarSesion();
-    try {
-      const res = await Modelo.iniciarSesion(username, password);
-      if (res.data.acceso == "AUTORIZADO") {
-        const access_token = res.data.access_token;
-        localStorage.setItem("access_token", access_token);
-        Vista.mostrarMensajeSatisfactorio("Inicio de sesión exitoso");
-        Vista.redirigirAIndex();
-      } else {
-        Vista.mostrarMensajeError("Usuario no encontrado")
-        Vista.limpiarCampos();
-      }
-
-    } catch (err) {
-      Vista.mostrarMensajeError('Error al iniciar sesión');
-      console.log(err);
-
-    }
-  },
-
   async agregarRecordatorio() {
     const { fecha, hora, medicamento, informacion, id_paciente } = Vista.getDatosRecordatorioAgregar();
     // La fecha viene en formato yyyy-mm-dd, se eliminan los guiones medio.
-    fechaFormateadaxd = fecha.replaceAll('-','')
+    fechaFormateadaxd = fecha.replaceAll('-', '')
     try {
 
       const res = await Modelo.agregarRecordatorio(fechaFormateadaxd, hora, medicamento, informacion, id_paciente);
       statusRequest = res.request['status']
-      if (statusRequest){
-       Vista.mostrarMensajeSatisfactorio("¡Recordatorio creado!")
-      }else{
-       Vista.mostrarMensajeError("No se pudo crear el recordatorio, intentalo nuevamente")
+      if (statusRequest) {
+        Vista.mostrarMensajeSatisfactorio("¡Recordatorio creado!")
+      } else {
+        Vista.mostrarMensajeError("No se pudo crear el recordatorio, intentalo nuevamente")
       }
 
     } catch (error) {
@@ -421,26 +387,25 @@ const Controlador = {
       console.log(err)
     }
   },
-
-  async infoUsuario() {
-
-    const id_paciente = Vista.getDatosUsuarioRecordatorios();
-
-    try {
-      const res = await Modelo.obtenerDatosUsuario(id_paciente);
-      Vista.mostrarInfoUsuario(res)
-    } catch (err) {
-      console.log(err);
+  /*
+    async infoUsuario() {
+  
+      const id_paciente = Vista.getDatosUsuarioRecordatorios();
+  
+      try {
+        const res = await Modelo.obtenerDatosUsuario(id_paciente);
+        Vista.mostrarInfoUsuario(res)
+      } catch (err) {
+        console.log(err);
+      }
     }
-  }
+    */
 }
 
 document.addEventListener('DOMContentLoaded', function () {
 
-
   Controlador.obtenerRecordatorios();
   Controlador.mostrarRecordatoriosCalendario();
-  Controlador.infoUsuario()
 
   //botonAgregarRecordatorio()
 
@@ -504,54 +469,46 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-    /* MODAL Notificaciones */
-    var modalNotificaciones = document.getElementById("targetModalNotificaciones");
-    var btnAbrirModalNotificaciones = document.getElementById("btnAbrirModalNotificaciones");
-    var btnCerrarModalNotificaciones = document.getElementsByClassName("cerrar-modal-notificaciones")[0];
-  
-    btnAbrirModalNotificaciones.onclick = function () {
-      modalNotificaciones.style.display = "block";
-    }
-  
-    btnCerrarModalNotificaciones.onclick = function () {
+  /* MODAL Notificaciones */
+  var modalNotificaciones = document.getElementById("targetModalNotificaciones");
+  var btnAbrirModalNotificaciones = document.getElementById("btnAbrirModalNotificaciones");
+  var btnCerrarModalNotificaciones = document.getElementsByClassName("cerrar-modal-notificaciones")[0];
+
+  btnAbrirModalNotificaciones.onclick = function () {
+    modalNotificaciones.style.display = "block";
+  }
+
+  btnCerrarModalNotificaciones.onclick = function () {
+    modalNotificaciones.style.display = "none";
+  }
+
+  window.onclick = function (event) {
+    if (event.target == modalNotificaciones) {
       modalNotificaciones.style.display = "none";
     }
-  
-    window.onclick = function (event) {
-      if (event.target == modalNotificaciones) {
-        modalNotificaciones.style.display = "none";
-      }
-    }
-
+  }
 
   //localStorage
 
   if (localStorage.getItem("access_token")) {
 
-    const ul = document.getElementById("menuLista");
-    const li = document.createElement('li');
-    const button = document.createElement('button');
-    const a = document.createElement('a');
-    li.classList.add('menu__item');
-    button.setAttribute("id", "cerrarSesion")
-    button.appendChild(a)
-    li.appendChild(button)
-    a.appendChild(document.createTextNode("Cerrar sesión"));
-    ul.appendChild(li);
-
-  } else {
-    const ul = document.getElementById("menuLista");
-    const li = document.createElement('li');
-    const button = document.createElement('button');
-    const a = document.createElement('a');
-    li.classList.add('menu__item');
-    button.setAttribute("id", "IniciarSesion")
-    a.setAttribute("href", "./pages/login.html");
-    //<i class="fa-solid fa-right-from-bracket"></i>
-    button.appendChild(a)
-    li.appendChild(button)
-    a.appendChild(document.createTextNode("Iniciar Sesión"));
-    ul.appendChild(li);
+    const menuDerecha = document.getElementById('menuDerecha');
+    const div = document.createElement('div')
+    div.classList.add('cerrar-sesion')
+    div.innerHTML =
+      `
+      <a id = "cerrarSesion"><i class="fa-solid fa-right-from-bracket fa-2x"></i></a>
+    `
+    menuDerecha.append(div)
+  }else{
+    const menuDerecha = document.getElementById('menuDerecha');
+    const div = document.createElement('div')
+    div.classList.add('iniciar-sesion')
+    div.innerHTML =
+      `
+      <a id = "IniciarSesion" href = "./pages/login.html"><i class="fa-solid fa-right-from-bracket fa-2x"></i></a>
+    `
+    menuDerecha.append(div)
   }
 
   const cerrarSesion = document.getElementById("cerrarSesion");
@@ -577,13 +534,15 @@ document.addEventListener('DOMContentLoaded', function () {
       if (result.isConfirmed) {
         localStorage.removeItem('access_token');
         localStorage.removeItem('id_paciente');
-        location.reload();
+        localStorage.removeItem('id_patient');
+        location.href = ("./pages/login.html");
       }
     })
 
   }
 
 });
+
 
 const botonEliminarRecordatorioSeleccionado = document.querySelector("#buscarButton");
 
@@ -607,44 +566,3 @@ const btnInsertarDatosRecordatorio = document.querySelector('#btnInsertarDatosRe
 btnInsertarDatosRecordatorio.onclick = function () {
   Controlador.agregarRecordatorio()
 }
-/*
-
-const modales = {
-  modalEliminarRecordatorio: "targetModalEliminarRecordatorio",
-  // Agrega más modales aquí...
-};
-
-const toggleModal = (modal) => {
-  const elementoModal = document.getElementById(modales[modal]);
-  elementoModal.style.display = (elementoModal.style.display === "block") ? "none" : "block";
-};
-
-const configurarModal = (modal, btnAbrir, btnCerrar, funcionAdicional) => {
-  const btnAbrirModal = document.getElementById(btnAbrir);
-  const btnCerrarModal = document.getElementsByClassName(btnCerrar)[0];
-
-  btnAbrirModal.onclick = () => {
-    toggleModal(modal);
-    if (funcionAdicional) {
-      funcionAdicional();
-    }
-  };
-
-  btnCerrarModal.onclick = () => toggleModal(modal);
-
-  window.onclick = (event) => {
-    if (event.target === document.getElementById(modales[modal])) {
-      toggleModal(modal);
-    }
-  };
-};
-
-const obtenerRecordatoriosEliminar = () => {
-  // Lógica para obtener recordatorios específicos para el modal de eliminar
-};
-
-// Configura cada modal con su respectivo botón de abrir y cerrar, y función adicional si es necesario
-configurarModal("modalEliminarRecordatorio", "btnAbrirModalEliminarRecordatorio", "cerrar-modal-eliminar-recordatorio", obtenerRecordatoriosEliminar);
-// Agrega más configuraciones para cada modal aquí...
-
-*/

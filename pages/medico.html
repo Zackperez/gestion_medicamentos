@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,12 +8,105 @@
     <link rel="stylesheet" href="../css/medico.css">
     <!-- Estilos externos -->
 
-    <title>Document</title>
+    <title>Medico</title>
 </head>
+
 <body>
-    <h1>Pantalla medico</h1>
+    <div class="hero">
+
+        <section class="pagina-principal">
+
+            <div class="contenedor">
+                <div class="contenido">
+                    <div class="datos-doctor">
+                        <div class="izq">
+                            <div class="foto">
+                                <img src="../img/male-profile.svg" alt="">
+                            </div>
+    
+                            <div class="nombre">
+                                <p>Dr. Jean</p>
+                            </div>
+                        </div>
+
+                        <div class="med">
+                            <div class="imagen">
+                                <img src="../img/bloque9.png" alt="">
+                            </div>
+                        </div>
+
+                        <div class="der">
+                            <div class="notificaciones">
+                                <a href=""><i class="fa-solid fa-bell fa-2x"></i></a>
+                            </div>
+                            <div class="cerrar-sesion">
+                                <a href=""><i class="fa-solid fa-right-from-bracket fa-2x"></i></a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="busqueda-paciente">
+
+                        <div class="cuadro-busqueda">
+                            <div class="titulo">
+                                <p>Cédula:</p>
+                            </div>
+
+                            <div class="busqueda">
+                                <input type="text" id="idPaciente">
+                            </div>
+
+                            <div class="boton-buscar">
+                                <button id="buscarPaciente">+</button>
+                            </div>
+                        </div>
+
+                        <div class="resultado-busqueda">
+                            <div class="foto-usuario">
+                                <img src="../img/female-profile.svg" alt="">
+                            </div>
+
+                            <div class="datos-usuario" id="datosUsuarioContenedor"></div>
+
+                        </div>
+                    </div>
+
+                    <div class="reportes-paciente">
+                        <div class="titulo-cuadro">
+                            <p>Reportes</p>
+                        </div>
+                        <div class="tabla-reportes" id="tablaReportes"></div>
+                    </div>
+
+                    <div class="recordatorios-paciente">
+                        <div class="titulo-cuadro">
+                            <p>Recordatorios activos</p>
+                        </div>
+
+                        <div class="tabla-recordatorios" id="tablaRecordatorios"></div>
+                    </div>
+
+                    <div class="redactar-correo">
+                        <div class="titulo-cuadro">
+                            <p>Enviar correos</p>
+                        </div>
+                        <div class="contenedor" id="contenedorCorreo">
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </section>
+    </div>
+
+
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://kit.fontawesome.com/1a5bcd4a97.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../js/medico.js"></script>
 </body>
+
 </html>
