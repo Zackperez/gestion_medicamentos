@@ -11,8 +11,6 @@ const Modelo = {
       id_paciente: id_paciente
     }
 
-    console.log(datos_insertar)
-
     const res = await axios({
       method: "POST",
       url: `http://127.0.0.1:5000/crear-recordatorio/`,
@@ -94,7 +92,6 @@ const Vista = {
 
     } else {
       return "Mañana"
-
     }
   },
 
@@ -133,11 +130,16 @@ const Vista = {
     const medicamento = document.querySelector('#campoMedicamentosCombobox').value;
     const informacion = document.querySelector('#informacionInsertarRecordatorio').value;
 
-    if (localStorage.getItem("id_paciente")) {
-      var id_paciente = localStorage.getItem("id_paciente")
+    if (fecha.length == 0 || hora.length == 0 || medicamento.length == 0 || informacion.length == 0) {
+      Vista.mostrarMensajeError("Los campos no pueden estar vacios")
+    } else {
+      if (localStorage.getItem("id_paciente")) {
+        var id_paciente = localStorage.getItem("id_paciente")
+      }
+      return { fecha, hora, medicamento, informacion, id_paciente };
     }
 
-    return { fecha, hora, medicamento, informacion, id_paciente };
+
   },
 
   // Funciones que muestran la vista
@@ -236,14 +238,22 @@ const Vista = {
 
   },
 
-  limpiarCampos() {
-    username.value = "";
-    password.value = "";
-  },
-
   redirigirAIndex() {
     location.href = ("../index.html");
   },
+
+  borrarCamposRecordatorio() {
+    var fecha = document.querySelector('#fechaInsertarRecordatorio');
+    var hora = document.querySelector('#horaInsertarRecordatorio');
+    var medicamento = document.querySelector('#campoMedicamentosCombobox');
+    var informacion = document.querySelector('#informacionInsertarRecordatorio');
+
+    fecha.value = "";
+    hora.value = "";
+    medicamento.value = "";
+    informacion.value = "";
+  }
+
 }
 
 const Controlador = {
@@ -273,9 +283,12 @@ const Controlador = {
     try {
 
       const res = await Modelo.agregarRecordatorio(fechaFormateadaxd, hora, medicamento, informacion, id_paciente);
+
       statusRequest = res.request['status']
+
       if (statusRequest) {
         Vista.mostrarMensajeSatisfactorio("¡Recordatorio creado!")
+        Vista.borrarCamposRecordatorio()
       } else {
         Vista.mostrarMensajeError("No se pudo crear el recordatorio, intentalo nuevamente")
       }
@@ -387,28 +400,13 @@ const Controlador = {
       console.log(err)
     }
   },
-  /*
-    async infoUsuario() {
-  
-      const id_paciente = Vista.getDatosUsuarioRecordatorios();
-  
-      try {
-        const res = await Modelo.obtenerDatosUsuario(id_paciente);
-        Vista.mostrarInfoUsuario(res)
-      } catch (err) {
-        console.log(err);
-      }
-    }
-    */
+
 }
 
 document.addEventListener('DOMContentLoaded', function () {
 
   Controlador.obtenerRecordatorios();
   Controlador.mostrarRecordatoriosCalendario();
-
-  //botonAgregarRecordatorio()
-
 
   /* MODAL ELIMINAR RECORDATORIO */
   var modalEliminarRecordatorio = document.getElementById("targetModalEliminarRecordatorio");
@@ -430,7 +428,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-
   /* MODAL Eliminar */
   var modalEliminar = document.getElementById("targetModalInsertar");
   var btnAbrirModalEliminar = document.getElementById("btnAbrirModalInsertar");
@@ -442,6 +439,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   btnCerrarModalEliminar.onclick = function () {
     modalEliminar.style.display = "none";
+    Vista.borrarCamposRecordatorio();
   }
 
   window.onclick = function (event) {
@@ -500,7 +498,7 @@ document.addEventListener('DOMContentLoaded', function () {
       <a id = "cerrarSesion"><i class="fa-solid fa-right-from-bracket fa-2x"></i></a>
     `
     menuDerecha.append(div)
-  }else{
+  } else {
     const menuDerecha = document.getElementById('menuDerecha');
     const div = document.createElement('div')
     div.classList.add('iniciar-sesion')
@@ -548,21 +546,42 @@ const botonEliminarRecordatorioSeleccionado = document.querySelector("#buscarBut
 
 botonEliminarRecordatorioSeleccionado.onclick = function () {
 
-  if (Controlador.eliminarRecordatorioSeleccionado()) {
-    Swal.fire({
-      position: 'center',
-      icon: 'success',
-      title: "Eliminado",
-      showConfirmButton: false,
-      timer: 800
-    })
-    Controlador.obtenerRecordatoriosEliminar();
-    Controlador.mostrarRecordatoriosCalendario();
-  }
+  Swal.fire({
+    title: '¿Estás seguro?',
+    text: "Se eliminará el recordatorio",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Borrar recordatorio'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Controlador.eliminarRecordatorioSeleccionado();
+      Controlador.obtenerRecordatoriosEliminar();
+      Controlador.mostrarRecordatoriosCalendario();
+      Swal.fire(
+        'Eliminado!',
+        'Recordatorio eliminado.',
+        'success'
+      )
+    }
+  })
 }
 
 const btnInsertarDatosRecordatorio = document.querySelector('#btnInsertarDatosRecordatorio');
 
 btnInsertarDatosRecordatorio.onclick = function () {
-  Controlador.agregarRecordatorio()
+
+  Swal.fire({
+    title: '¿Estás seguro?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Crear recordatorio'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Controlador.agregarRecordatorio()
+    }
+  })
 }

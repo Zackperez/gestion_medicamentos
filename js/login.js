@@ -61,8 +61,12 @@ const Vista = {
     console.log(mensaje);
   },
 
-  redirigirAIndex() {
+  redirigirAlUsuario() {
     location.href = ("../index.html");
+  },
+
+  redirigirMedico() {
+    location.href = ("./medico.html");
   },
 
   
@@ -77,13 +81,28 @@ const Controlador = {
       const res = await Modelo.iniciarSesion(username, password);
       console.log(res)
       if (res.data.acceso == true) {
-        const access_token = res.data.access_token;
-        const id_paciente = res.data.id_paciente;
+        if (res.data.rol == "usuario"){
+          const access_token = res.data.access_token;
+          const id_paciente = res.data.id_paciente;
+  
+          localStorage.setItem("access_token", access_token);
+          localStorage.setItem("id_paciente", id_paciente);
+          Vista.mostrarMensajeSatisfactorio("Inicio de sesión exitoso");
+          Vista.redirigirAlUsuario();
+        }
 
-        localStorage.setItem("access_token", access_token);
-        localStorage.setItem("id_paciente", id_paciente);
-        Vista.mostrarMensajeSatisfactorio("Inicio de sesión exitoso");
-        Vista.redirigirAIndex();
+        if(res.data.rol == "medico"){
+          const access_token = res.data.access_token;
+          const nombreUsuario = res.data.nombre;
+          const id_paciente = res.data.id_paciente;
+
+          localStorage.setItem("access_token", access_token);
+          localStorage.setItem("usuario", nombreUsuario);
+          localStorage.setItem("id_paciente", id_paciente);
+
+          Vista.redirigirMedico();
+        }
+
       } else {
         Vista.mostrarMensajeError("Usuario no encontrado")
       }
@@ -91,7 +110,6 @@ const Controlador = {
     } catch (err) {
       Vista.mostrarMensajeError('Error al iniciar sesión');
       console.log(err);
-      Vista.limpiarCampos();
     }
   },
 

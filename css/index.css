@@ -41,6 +41,7 @@
 
 .hero .pagina-principal .datos-usuario .izq .nombre p{
     color: var(--blanco);
+	font-size: 0.9vw;
 }
 
 .hero .pagina-principal .datos-usuario .der{

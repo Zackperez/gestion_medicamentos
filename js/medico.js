@@ -9,6 +9,13 @@ const Modelo = {
     return res;
   },
 
+  async traerDatosDoctor(idDoctor) {
+    const res = await axios({
+      method: "GET",
+      url: `http://127.0.0.1:5000/datos-doctor/${idDoctor}`,
+    });
+    return res;
+  },
 }
 
 const Vista = {
@@ -17,41 +24,6 @@ const Vista = {
     const idPaciente = document.getElementById('idPaciente').value;
     return { idPaciente }
   },
-
-  /*
-    mostrarRecordatoriosUsuario(res) {
-      datos_recordatorios = res.data.recordatorios_medicamentos
-      console.log(datos_recordatorios)
-      const recordatoriosContenedor = document.getElementById('recordatoriosContenedor')
-      datos_recordatorios.forEach(element => {
-        const contenedor = document.createElement('div');
-        contenedor.classList.add('recordatorio')
-  
-        contenedor.innerHTML = `
-          <div class="icono">
-              <i class="fa-solid fa-clock fa-2x"></i>
-          </div>
-  
-          <div class="medicamento">
-            <p>${element.medicamento}</p>
-          </div>
-  
-          <div class="descripcion">
-              <p>${element.informacion}</p>
-          </div>
-  
-          <div class="fecha">
-              <p><i class="fa-regular fa-calendar-days"></i>Fecha: ${element.fecha}</p>
-          </div>
-  
-          <div class="hora">
-              <p><i class="fa-solid fa-clock"></i> Hora: ${element.hora}</p>
-          </div>
-        `
-        recordatoriosContenedor.append(contenedor)
-      });
-    },
-  */
 
   mostrarRecordatoriosUsuario(res) {
     datos = res.data.recordatorios_medicamentos
@@ -206,8 +178,8 @@ const Vista = {
     correo = datos_usuario['correo']
     const contenedorCorreo = document.getElementById('contenedorCorreo');
 
-    contenedorCorreo.innerHTML = 
-    `
+    contenedorCorreo.innerHTML =
+      `
     <div class="campo destinario">
       <div class="titulo">
           <p>Correo:</p>
@@ -239,7 +211,40 @@ const Vista = {
       <button id="enviarCorreo">Enviar</button>
   </div>
     `
-  }
+  },
+
+  traerNombreDoctor() {
+    const idDoctor = localStorage.getItem('id_paciente');
+    return idDoctor
+  },
+
+  mostrarDatosDoctor(res) {
+    datos_doctor = res.data
+
+    const nombreUsuario = datos_doctor.nombre;
+    const menuNombreUsuario = document.getElementById('menuNombreUsuario');
+    const p = document.createElement('p');
+    const pTexto = document.createTextNode(`Dr. ${nombreUsuario}`);
+    p.appendChild(pTexto);
+    menuNombreUsuario.appendChild(p)
+
+  },
+
+  mostrarMensajeSatisfactorio(mensaje){
+    Swal.fire({
+      icon: 'success',
+      title: 'Éxito',
+      text: mensaje,
+    })
+  },
+
+  mostrarMensajeError(mensaje){
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: mensaje,
+    })
+  },
 }
 
 const Controlador = {
@@ -248,13 +253,25 @@ const Controlador = {
     const { idPaciente } = Vista.traerIdUsuario()
 
     try {
-
       const res = await Modelo.obtenerDatosUsuario(idPaciente)
+
       Vista.mostrarDatosUsuario(res)
       Vista.mostrarRecordatoriosUsuario(res)
       Vista.mostrarReportes(res)
       Vista.mostrarEnviarCorreo(res)
 
+    } catch (error) {
+      console.log(error)
+      Vista.mostrarMensajeError(`El ID ${idPaciente} no existe`)
+
+    }
+  },
+
+  async traerDatosDoctor() {
+    const idDoctor = Vista.traerNombreDoctor()
+    try {
+      const res = await Modelo.traerDatosDoctor(idDoctor)
+      Vista.mostrarDatosDoctor(res)
     } catch (error) {
       console.log(error)
     }
@@ -264,8 +281,80 @@ const Controlador = {
 
 document.addEventListener('DOMContentLoaded', function () {
 
+  Controlador.traerDatosDoctor();
+
+
+  if (localStorage.getItem("access_token")) {
+
+    const menuDerecha = document.getElementById('menuDerecha');
+    const div = document.createElement('div')
+    div.classList.add('cerrar-sesion')
+    div.innerHTML =
+      `
+      <a id = "cerrarSesion"><i class="fa-solid fa-right-from-bracket fa-2x"></i></a>
+    `
+    menuDerecha.append(div)
+  } else {
+    const menuDerecha = document.getElementById('menuDerecha');
+    const div = document.createElement('div')
+    div.classList.add('iniciar-sesion')
+    div.innerHTML =
+      `
+      <a id = "IniciarSesion" href = "./pages/login.html"><i class="fa-solid fa-right-from-bracket fa-2x"></i></a>
+    `
+    menuDerecha.append(div)
+  }
+
+  const cerrarSesion = document.getElementById("cerrarSesion");
+
+  cerrarSesion.onclick = function () {
+
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger'
+      },
+      buttonsStyling: false
+    })
+
+    swalWithBootstrapButtons.fire({
+      title: '¿Cerrar sesión?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Cerrar sesión',
+      cancelButtonText: 'Cancelar',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('id_paciente');
+        localStorage.removeItem('id_patient');
+        location.href = ("./login.html");
+      }
+    })
+
+  }
 
 })
+
+/* MODAL Notificaciones */
+var modalNotificaciones = document.getElementById("targetModalNotificaciones");
+var btnAbrirModalNotificaciones = document.getElementById("btnAbrirModalNotificaciones");
+var btnCerrarModalNotificaciones = document.getElementsByClassName("cerrar-modal-notificaciones")[0];
+
+btnAbrirModalNotificaciones.onclick = function () {
+  modalNotificaciones.style.display = "block";
+}
+
+btnCerrarModalNotificaciones.onclick = function () {
+  modalNotificaciones.style.display = "none";
+}
+
+window.onclick = function (event) {
+  if (event.target == modalNotificaciones) {
+    modalNotificaciones.style.display = "none";
+  }
+}
 
 const buscarPaciente = document.getElementById('buscarPaciente')
 
