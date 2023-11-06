@@ -1,6 +1,9 @@
 @import url(./config/global.css);
 
-/* CONTENIDO MENU */
+body{
+	background-color: var(--gris);
+
+}
 
 .pagina-principal{
 	display: grid;
@@ -50,7 +53,24 @@
     column-gap: 2vw;
 }
 
+
 .hero .pagina-principal .datos-usuario .der .reportar i{
+    color: white;
+}
+
+.hero .pagina-principal .datos-usuario .der .notificacion-numero{
+	background-color: red;
+	color: var(--blanco);
+	border-radius: 50%;
+	font-weight: bold;
+	font-size: 0.8vw;
+	margin-bottom: 4vh;
+	padding: 0.1vw 0.5vw;
+	margin-left: 12vw;
+	position: absolute;
+}
+
+.hero .pagina-principal .datos-usuario .der .inicio i{
     color: white;
 }
 
@@ -183,7 +203,6 @@
 .contenedor .recordatorios .botones a:hover {
 	background-color: rgb(250, 156, 171);
 }
-
 
 .calendario {
 	height: 70vh;

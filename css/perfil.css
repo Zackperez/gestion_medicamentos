@@ -1,75 +1,87 @@
 @import url(./config/global.css);
 
-.hero {
+.pagina-principal{
 	display: grid;
-	grid-template-areas:
-		"menu"
-		"perfil-usuario";
-	grid-template-columns: 1fr;
-	grid-template-rows: auto 90vh;
+	padding: 1vw;
+	background-color: var(--gris);
+	
 }
 
-/* CONTENIDO MENU */
-
-.menu {
-	grid-area: menu;
-	display: grid;
-	height: 10vh;
-	background-color: var(--negro1);
+.pagina-principal .datos-usuario{
+	height: 5vh;
 }
 
-.menu-contenedor {
-	display: grid;
-	grid-template-areas:
-		"imagen enlaces";
-	align-items: center;
-	justify-content: space-between;
-	margin-left: 5vw;
-	margin-right: 5vw;
+.hero .pagina-principal .datos-usuario{
+    display: flex;
+    border-radius: 0.5vw;
+    background-color: var(--negro1);
+    padding: 2vw;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
 }
 
-.menu-imagen {
-	grid-area: imagen;
+.hero .pagina-principal .datos-usuario .izq{
+	text-align: center;
 }
 
-.menu-imagen img {
-	height: 7vh;
-	width: auto;
+.hero .pagina-principal .datos-usuario .izq .foto img{
+    height: 8vh;
+    width: auto;
 }
 
-.menu-lista {
-	grid-area: enlaces;
+.hero .pagina-principal .datos-usuario .izq .nombre p{
+    color: var(--blanco);
+	font-size: 0.9vw;
 }
 
-.menu-contenedor .menu-lista {
-	display: flex;
+.hero .pagina-principal .datos-usuario .der{
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 2vw;
 }
 
-.menu-contenedor .menu-lista .menu__item {
+
+.hero .pagina-principal .datos-usuario .der .reportar i{
+    color: white;
+}
+
+.hero .pagina-principal .datos-usuario .der .notificacion-numero{
+	background-color: red;
 	color: var(--blanco);
-}
-
-.menu-contenedor .menu-lista .menu__item a {
-	font-size: 1.5vw;
-	margin-left: 2vw;
-	color: var(--blanco);
-}
-
-.menu-contenedor .menu-lista .menu__item a:hover {
-	color: var(--anaranjado);
-}
-
-.menu-contenedor .menu-lista .menu__item--active a {
+	border-radius: 50%;
 	font-weight: bold;
-	/*border-bottom: 1px solid var(--blanco); */
-	color: var(--anaranjado);
+	font-size: 0.8vw;
+	margin-bottom: 4vh;
+	padding: 0.1vw 0.5vw;
+	margin-left: 12vw;
+	position: absolute;
+}
+
+.hero .pagina-principal .datos-usuario .der .inicio i{
+    color: white;
+}
+
+.hero .pagina-principal .datos-usuario .der .notificaciones i{
+    color: white;
+}
+
+.hero .pagina-principal .datos-usuario .der .cerrar-sesion i{
+    color: white;
+}
+
+.hero .pagina-principal .datos-usuario .der .iniciar-sesion i{
+    color: white;
+}
+
+.hero .pagina-principal .datos-usuario .med .imagen img{
+    height: 10vh;
+    width: auto;
 }
 
 .perfil-usuario {
-	grid-area: perfil-usuario;
 	display: grid;
 	place-content: center;
-	background-color: var(--gris);
 }
 
 .perfil-usuario .contenido{
@@ -84,6 +96,7 @@
 	min-height: 70vh;
 	width: 80vw;
 	border-radius: 0.5vw;
+	margin-top: 3vh;
 	background-color: var(--blanco);
 }
 
@@ -146,5 +159,100 @@
 	color: #888888;
 }
 
+.contenedor-triangulo{
+	position: absolute;
+}
 
+.triangulo {
+	border-left: 15px solid transparent;
+	border-right: 15px solid transparent;
+	border-bottom: 20px solid var(--gris);
+	margin-left: 90.5vw;
+	margin-top: 11vh;
+  }
+
+.modal-notificaciones {
+	display: none;
+	/* POr defecto no se muestran en pantalla hasta que se abran */
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-notificaciones .modal-contenido {
+	display: grid;
+	background-color: var(--gris);
+	align-content: start;
+	height: 70vh;
+	width: 55vw;
+	margin: 6.5% 40%;
+	padding: 0;
+}
+
+.modal-notificaciones .modal-contenido .modal-cabecera{
+	display: flex;
+    height: 10vh;
+	background-color: var(--gris);
+    padding: 0.5vw 1vw;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+	align-items: center;
+}
+
+.modal-notificaciones .modal-contenido .modal-cabecera h2{
+	font-size: 2vw;
+	text-align: start;
+}
+
+.modal-notificaciones .modal-cuerpo{
+	display: grid;
+	row-gap: 1vw;
+	align-content: start;
+	padding: 1vw;
+	overflow: auto;
+}
+
+.modal-notificaciones .modal-cuerpo .contenedor-notificaciones{
+	display: grid;
+	grid-template-areas: 
+	"icono titulo fecha hora"
+	"icono lugar lugar lugar";
+	column-gap: 1vw;
+	padding: 1vw;
+	background-color: white;
+	border-radius: 0.5vw;
+}
+
+.modal-notificaciones .modal-cuerpo .icono{
+	grid-area: icono;
+}
+
+.modal-notificaciones .modal-cuerpo .titulo{
+	grid-area: titulo;
+}
+
+.modal-notificaciones .modal-cuerpo .fecha{
+	grid-area: fecha;
+}
+
+.modal-notificaciones .modal-cuerpo .fecha p, .hora p, .titulo p{
+	font-weight: bold;
+	font-size: 1vw;
+}
+
+.modal-notificaciones .modal-cuerpo .hora{
+	grid-area: hora;
+}
+
+.modal-notificaciones .modal-cuerpo .lugar{
+	grid-area: lugar;
+}
+
+.modal-notificaciones .modal-cuerpo .lugar p{
+	font-size: 1vw;
+}
 

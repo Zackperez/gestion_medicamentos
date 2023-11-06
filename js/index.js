@@ -19,6 +19,14 @@ const Modelo = {
     return res;
   },
 
+  async obtenerNotificaciones(id) {
+    const res = await axios({
+      method: "GET",
+      url: `http://127.0.0.1:5000/obtener-notificaciones/${id}`,
+    });
+    return res;
+  },
+
   async obtenerRecordatorios(id_paciente) {
 
     const res = await axios({
@@ -67,6 +75,50 @@ const Modelo = {
 }
 
 const Vista = {
+
+  mostrarNotificaciones(res) {
+
+    const contenedorNotificaciones = document.getElementById('contenedorNotificaciones');
+    const notificacionNumero = document.getElementById('notificacionNumero');
+    numeroNotificaciones = res.data['datos_notificaciones'].length
+    dataxd = res.data['datos_notificaciones']
+    dataxd.forEach(element => {
+      const div = document.createElement('div');
+      div.classList.add('contenedor-notificaciones');
+      div.innerHTML =
+          `
+        <div class="icono">
+            <i class="fa-solid fa-prescription-bottle-medical fa-3x"></i>
+        </div>
+
+        <div class="titulo">
+            <p>Retiro de ${element.medicina}</p>
+        </div>
+
+        <div class="fecha">
+            <p><i class="fa-regular fa-calendar-days"></i> Dia: ${element.fecha}</p>
+        </div>
+
+        <div class="hora">
+            <p><i class="fa-solid fa-clock"></i> Hora: ${element.hora}</p>
+        </div>
+
+        <div class="lugar">
+            <p>Lugar:${element.informacion}</p>
+        </div>
+        `
+      contenedorNotificaciones.append(div)
+    });
+    const div = document.createElement('div');
+    div.classList.add('notificacion-numero')
+    div.innerHTML = 
+    `
+      <p>${numeroNotificaciones}</p>
+
+    `;
+    notificacionNumero.append(div)
+
+  },
 
   // Funciones externas
 
@@ -147,6 +199,7 @@ const Vista = {
   mostrarRecordatorios(response) {
     const contenedorRecordatorios = document.querySelector('#contenedorRecordatorios');
     data = response.data['recordatorios']
+    console.log(data)
     data.forEach(element => {
       const contenedor = document.createElement('div');
 
@@ -235,7 +288,6 @@ const Vista = {
       showConfirmButton: false,
       timer: 800
     })
-
   },
 
   redirigirAIndex() {
@@ -259,11 +311,10 @@ const Vista = {
 const Controlador = {
 
   formatearFecha(fechaOriginal) {
-    // Separa la fecha en año, mes y día
+
     var año = fechaOriginal.substr(0, 4);
     var mes = fechaOriginal.substr(4, 2);
     var dia = fechaOriginal.substr(6, 2);
-    // Formatea la fecha en "dd / mm / aaaa"
 
     return dia + " / " + mes + " / " + año;
   },
@@ -278,7 +329,7 @@ const Controlador = {
 
   async agregarRecordatorio() {
     const { fecha, hora, medicamento, informacion, id_paciente } = Vista.getDatosRecordatorioAgregar();
-    // La fecha viene en formato yyyy-mm-dd, se eliminan los guiones medio.
+
     fechaFormateadaxd = fecha.replaceAll('-', '')
     try {
 
@@ -401,12 +452,24 @@ const Controlador = {
     }
   },
 
+  async mostrarNotificaciones() {
+    const id_paciente = Vista.getDatosUsuarioRecordatorios();
+
+    try {
+      const res = await Modelo.obtenerNotificaciones(id_paciente);
+      Vista.mostrarNotificaciones(res)
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
 }
 
 document.addEventListener('DOMContentLoaded', function () {
 
   Controlador.obtenerRecordatorios();
   Controlador.mostrarRecordatoriosCalendario();
+  Controlador.mostrarNotificaciones()
 
   /* MODAL ELIMINAR RECORDATORIO */
   var modalEliminarRecordatorio = document.getElementById("targetModalEliminarRecordatorio");
@@ -540,7 +603,6 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
 });
-
 
 const botonEliminarRecordatorioSeleccionado = document.querySelector("#buscarButton");
 

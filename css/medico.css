@@ -15,7 +15,7 @@
     background-color: var(--gris);
 }
 
-.contenedor .contenido .datos-doctor{
+.contenedor .contenido .datos-doctor {
     display: flex;
     grid-area: datos-doctor;
     border-radius: 0.5vw;
@@ -26,30 +26,30 @@
     flex-direction: row;
 }
 
-.contenedor .contenido .datos-doctor .izq .foto img{
+.contenedor .contenido .datos-doctor .izq .foto img {
     height: 8vh;
     width: auto;
 }
 
-.contenedor .contenido .datos-doctor .izq .nombre p{
+.contenedor .contenido .datos-doctor .izq .nombre p {
     color: var(--blanco);
 }
 
-.contenedor .contenido .datos-doctor .der{
+.contenedor .contenido .datos-doctor .der {
     display: flex;
     flex-wrap: wrap;
     column-gap: 2vw;
 }
 
-.contenedor .contenido .datos-doctor .der .notificaciones i{
+.contenedor .contenido .datos-doctor .der .notificaciones i {
     color: white;
 }
 
-.contenedor .contenido .datos-doctor .der .cerrar-sesion i{
+.contenedor .contenido .datos-doctor .der .cerrar-sesion i {
     color: white;
 }
 
-.contenedor .contenido .datos-doctor .med .imagen img{
+.contenedor .contenido .datos-doctor .med .imagen img {
     height: 10vh;
     width: auto;
 }
@@ -74,13 +74,14 @@
     padding: 1vw;
 }
 
-.contenedor .contenido .busqueda-paciente .boton-buscar{
+.contenedor .contenido .busqueda-paciente .boton-buscar {
     display: flex;
     flex-direction: row;
     column-gap: 0;
 
 }
-.contenedor .contenido .busqueda-paciente .boton-buscar button{
+
+.contenedor .contenido .busqueda-paciente .boton-buscar button {
     margin: 0.3vw;
 }
 
@@ -162,7 +163,8 @@ button {
     padding: 1vw;
 }
 
-.contenedor .contenido .recordatorios-paciente, .reportes-paciente .titulo-cuadro p{
+.contenedor .contenido .recordatorios-paciente,
+.reportes-paciente .titulo-cuadro p {
     font-size: 1.5vw;
 }
 
@@ -199,153 +201,132 @@ button {
     height: 12vh;
 }
 
-#tablaReportes {
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table {
     grid-area: tabla;
 }
 
-#tablaReportes {
+table {
     width: 100%;
     border-collapse: collapse;
     font-family: Arial, sans-serif;
 }
 
-#tablaReportes th,
-#tablaReportes td {
+th,
+td {
     padding: 0.5vw;
     text-align: center;
     font-size: 1vw;
 }
-
-#tablaReportes th {
+th {
     background-color: var(--pink);
     font-weight: bold;
     text-transform: capitalize;
 }
 
-#tablaReportes tr:nth-child(even) {
+tr{
     background-color: #f9f9f9;
 }
 
-#tablaRecordatorios {
-    grid-area: tabla;
-}
-
-#tablaRecordatorios {
-    width: 100%;
-    border-collapse: collapse;
-    font-family: Arial, sans-serif;
-}
-
-#tablaRecordatorios th,
-#tablaRecordatorios td {
-    padding: 0.5vw;
-    text-align: center;
-    font-size: 1vw;
-}
-
-#tablaRecordatorios th {
-    background-color: var(--pink);
-    font-weight: bold;
-    text-transform: capitalize;
-}
-
-#tablaRecordatorios tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-.contenedor-triangulo{
-	position: absolute;
+.contenedor-triangulo {
+    position: absolute;
 }
 
 .triangulo {
-	border-left: 15px solid transparent;
-	border-right: 15px solid transparent;
-	border-bottom: 20px solid var(--gris);
-	margin-left: 89.45vw;
-	margin-top: 11vh;
-  }
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 20px solid var(--gris);
+    margin-left: 89.45vw;
+    margin-top: 11vh;
+}
 
 .modal-notificaciones {
-	display: none;
-	/* POr defecto no se muestran en pantalla hasta que se abran */
-	position: fixed;
-	z-index: 1;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0, 0, 0, 0.4);
+    display: none;
+    /* POr defecto no se muestran en pantalla hasta que se abran */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 .modal-notificaciones .modal-contenido {
-	display: grid;
-	background-color: var(--gris);
-	align-content: start;
-	height: 70vh;
-	width: 55vw;
-	margin: 6.5% 40%;
-	padding: 0;
+    display: grid;
+    background-color: var(--gris);
+    align-content: start;
+    height: 70vh;
+    width: 55vw;
+    margin: 6.5% 40%;
+    padding: 0;
 }
 
-.modal-notificaciones .modal-contenido .modal-cabecera{
-	display: flex;
+.modal-notificaciones .modal-contenido .modal-cabecera {
+    display: flex;
     height: 10vh;
-	background-color: var(--gris);
+    background-color: var(--gris);
     padding: 0.5vw 1vw;
     flex-direction: row-reverse;
     justify-content: space-between;
-	align-items: center;
+    align-items: center;
 }
 
-.modal-notificaciones .modal-contenido .modal-cabecera h2{
-	font-size: 2vw;
-	text-align: start;
+.modal-notificaciones .modal-contenido .modal-cabecera h2 {
+    font-size: 2vw;
+    text-align: start;
 }
 
-.modal-notificaciones .modal-cuerpo{
-	display: grid;
-	row-gap: 1vw;
-	align-content: start;
-	padding: 1vw;
-	overflow: auto;
+.modal-notificaciones .modal-cuerpo {
+    display: grid;
+    row-gap: 1vw;
+    align-content: start;
+    padding: 1vw;
+    overflow: auto;
 }
 
-.modal-notificaciones .modal-cuerpo .contenedor-notificaciones{
-	display: grid;
-	grid-template-areas: 
-	"icono titulo fecha hora"
-	"icono lugar lugar lugar";
-	column-gap: 1vw;
-	padding: 1vw;
-	background-color: white;
-	border-radius: 0.5vw;
+.modal-notificaciones .modal-cuerpo .contenedor-notificaciones {
+    display: grid;
+    grid-template-areas:
+        "icono titulo fecha hora"
+        "icono lugar lugar lugar";
+    column-gap: 1vw;
+    padding: 1vw;
+    background-color: white;
+    border-radius: 0.5vw;
 }
 
-.modal-notificaciones .modal-cuerpo .icono{
-	grid-area: icono;
+.modal-notificaciones .modal-cuerpo .icono {
+    grid-area: icono;
 }
 
-.modal-notificaciones .modal-cuerpo .titulo{
-	grid-area: titulo;
+.modal-notificaciones .modal-cuerpo .titulo {
+    grid-area: titulo;
 }
 
-.modal-notificaciones .modal-cuerpo .fecha{
-	grid-area: fecha;
+.modal-notificaciones .modal-cuerpo .fecha {
+    grid-area: fecha;
 }
 
-.modal-notificaciones .modal-cuerpo .fecha p, .hora p, .titulo p{
-	font-weight: bold;
-	font-size: 1vw;
+.modal-notificaciones .modal-cuerpo .fecha p,
+.hora p,
+.titulo p {
+    font-weight: bold;
+    font-size: 1vw;
 }
 
-.modal-notificaciones .modal-cuerpo .hora{
-	grid-area: hora;
+.modal-notificaciones .modal-cuerpo .hora {
+    grid-area: hora;
 }
 
-.modal-notificaciones .modal-cuerpo .lugar{
-	grid-area: lugar;
+.modal-notificaciones .modal-cuerpo .lugar {
+    grid-area: lugar;
 }
 
-.modal-notificaciones .modal-cuerpo .lugar p{
-	font-size: 1vw;
+.modal-notificaciones .modal-cuerpo .lugar p {
+    font-size: 1vw;
 }

@@ -7,6 +7,14 @@ const Modelo = {
         });
         return res;
     },
+
+    async obtenerNotificaciones(id) {
+        const res = await axios({
+          method: "GET",
+          url: `http://127.0.0.1:5000/obtener-notificaciones/${id}`,
+        });
+        return res;
+      },
 }
 
 const Vista = {
@@ -18,7 +26,15 @@ const Vista = {
         }
     },
 
-    mostrarDatosUsuario(res){
+    getDatosUsuarioRecordatorios() {
+
+        if (localStorage.getItem("id_paciente")) {
+          const id_paciente = localStorage.getItem("id_paciente")
+          return id_paciente
+        }
+      },
+
+    mostrarDatosUsuario(res) {
         datos = res.data
         datos_usuario = datos['datos_usuario']
         nombre = datos_usuario['nombre']
@@ -106,7 +122,52 @@ const Vista = {
                 </div>
             </div>
             `
-    }
+    },
+
+    mostrarNotificaciones(res) {
+
+        const contenedorNotificaciones = document.getElementById('contenedorNotificaciones');
+        const notificacionNumero = document.getElementById('notificacionNumero');
+        numeroNotificaciones = res.data['datos_notificaciones'].length
+        dataxd = res.data['datos_notificaciones']
+        dataxd.forEach(element => {
+          const div = document.createElement('div');
+          div.classList.add('contenedor-notificaciones');
+          div.innerHTML =
+              `
+            <div class="icono">
+                <i class="fa-solid fa-prescription-bottle-medical fa-3x"></i>
+            </div>
+    
+            <div class="titulo">
+                <p>Retiro de ${element.medicina}</p>
+            </div>
+    
+            <div class="fecha">
+                <p><i class="fa-regular fa-calendar-days"></i> Dia: ${element.fecha}</p>
+            </div>
+    
+            <div class="hora">
+                <p><i class="fa-solid fa-clock"></i> Hora: ${element.hora}</p>
+            </div>
+    
+            <div class="lugar">
+                <p>Lugar:${element.informacion}</p>
+            </div>
+            `
+          contenedorNotificaciones.append(div)
+        });
+        const div = document.createElement('div');
+        div.classList.add('notificacion-numero')
+        div.innerHTML = 
+        `
+          <p>${numeroNotificaciones}</p>
+    
+        `;
+        notificacionNumero.append(div)
+    
+      },
+
 }
 
 const Controlador = {
@@ -123,38 +184,45 @@ const Controlador = {
         }
 
     },
+
+    async mostrarNotificaciones() {
+        const id_paciente = Vista.getDatosUsuarioRecordatorios();
+    
+        try {
+          const res = await Modelo.obtenerNotificaciones(id_paciente);
+          Vista.mostrarNotificaciones(res)
+        } catch (err) {
+          console.log(err);
+        }
+      }
+
+
 }
 
 document.addEventListener('DOMContentLoaded', function () {
 
     Controlador.obtenerDatosPaciente()
+    Controlador.mostrarNotificaciones()
 
     if (localStorage.getItem("access_token")) {
 
-        const ul = document.getElementById("menuLista");
-        const li = document.createElement('li');
-        const button = document.createElement('button');
-        const a = document.createElement('a');
-        li.classList.add('menu__item');
-        button.setAttribute("id", "cerrarSesion")
-        button.appendChild(a)
-        li.appendChild(button)
-        a.appendChild(document.createTextNode("Cerrar sesión"));
-        ul.appendChild(li);
-
+        const menuDerecha = document.getElementById('menuDerecha');
+        const div = document.createElement('div')
+        div.classList.add('cerrar-sesion')
+        div.innerHTML =
+            `
+          <a id = "cerrarSesion"><i class="fa-solid fa-right-from-bracket fa-2x"></i></a>
+        `
+        menuDerecha.append(div)
     } else {
-        const ul = document.getElementById("menuLista");
-        const li = document.createElement('li');
-        const button = document.createElement('button');
-        const a = document.createElement('a');
-        li.classList.add('menu__item');
-        button.setAttribute("id", "IniciarSesion")
-        a.setAttribute("href", "./pages/login.html");
-        //<i class="fa-solid fa-right-from-bracket"></i>
-        button.appendChild(a)
-        li.appendChild(button)
-        a.appendChild(document.createTextNode("Iniciar Sesión"));
-        ul.appendChild(li);
+        const menuDerecha = document.getElementById('menuDerecha');
+        const div = document.createElement('div')
+        div.classList.add('iniciar-sesion')
+        div.innerHTML =
+            `
+          <a id = "IniciarSesion" href = "./pages/login.html"><i class="fa-solid fa-right-from-bracket fa-2x"></i></a>
+        `
+        menuDerecha.append(div)
     }
 
     const cerrarSesion = document.getElementById("cerrarSesion");
@@ -180,10 +248,31 @@ document.addEventListener('DOMContentLoaded', function () {
             if (result.isConfirmed) {
                 localStorage.removeItem('access_token');
                 localStorage.removeItem('id_paciente');
-                location.reload();
+                localStorage.removeItem('id_patient');
+                location.href = ("./pages/login.html");
             }
         })
 
     }
 
+/* MODAL Notificaciones */
+var modalNotificaciones = document.getElementById("targetModalNotificaciones");
+var btnAbrirModalNotificaciones = document.getElementById("btnAbrirModalNotificaciones");
+var btnCerrarModalNotificaciones = document.getElementsByClassName("cerrar-modal-notificaciones")[0];
+
+btnAbrirModalNotificaciones.onclick = function () {
+  modalNotificaciones.style.display = "block";
+}
+
+btnCerrarModalNotificaciones.onclick = function () {
+  modalNotificaciones.style.display = "none";
+}
+
+window.onclick = function (event) {
+  if (event.target == modalNotificaciones) {
+    modalNotificaciones.style.display = "none";
+  }
+}
+
 });
+
