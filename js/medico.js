@@ -20,6 +20,15 @@ const Modelo = {
 
 const Vista = {
 
+  formatearFecha(fechaOriginal) {
+    // Separa la fecha en año, mes y día
+    var año = fechaOriginal.substr(0, 4);
+    var mes = fechaOriginal.substr(4, 2);
+    var día = fechaOriginal.substr(6, 2);
+    // Formatea la fecha en "dd / mm / aaaa"
+    return día + " / " + mes + " / " + año;
+  },
+
   traerIdUsuario() {
     const idPaciente = document.getElementById('idPaciente').value;
     return { idPaciente }
@@ -31,9 +40,17 @@ const Vista = {
     const tablaRecordatorios = document.getElementById('tablaRecordatorios');
     tablaRecordatorios.innerHTML = ''; // Limpiar contenido existente
 
+    const datosFormateados = datos.map(item => ({
+      ...item,
+      fecha: this.formatearFecha(item.fecha),
+    }));
+
+    const columnas = ['fecha', 'hora','id_recordatorio', 'informacion', 'medicamento'];
+
+
     // Crear la fila de encabezados
     const encabezadoRow = document.createElement('tr');
-    for (const encabezado of Object.keys(datos[0])) {
+    for (const encabezado of columnas) {
       const th = document.createElement('th');
       th.textContent = encabezado;
       encabezadoRow.appendChild(th);
@@ -41,11 +58,11 @@ const Vista = {
     tablaRecordatorios.appendChild(encabezadoRow);
 
     // Crear las filas de datos
-    datos.forEach(dato => {
+    datosFormateados.forEach(dato => {
       const fila = document.createElement('tr');
-      for (const prop in dato) {
+      for (const columna of columnas) {
         const celda = document.createElement('td');
-        celda.textContent = dato[prop];
+        celda.textContent = dato[columna];
         fila.appendChild(celda);
       }
       tablaRecordatorios.appendChild(fila);
@@ -56,24 +73,32 @@ const Vista = {
   mostrarReportes: function (res) {
     datos = res.data.reportes
 
+    let otro = datos;
+    const otros = otro.map(item => {
+      const { created_at, ...rest } = item;
+      const fechaFormateada = created_at.split('T')[0].split('-').reverse().join(' / ');
+      return { ...rest, creado: fechaFormateada };
+    });
+    
+
     const tablaReportes = document.getElementById('tablaReportes');
     tablaReportes.innerHTML = ''; // Limpiar contenido existente
+    // Crear la fila de encabezados en el nuevo orden deseado
+    const columnas = ['creado', 'id_reportes', 'enfermedad', 'descripcion',];
 
-    // Crear la fila de encabezados
     const encabezadoRow = document.createElement('tr');
-    for (const encabezado of Object.keys(datos[0])) {
+    for (const columna of columnas) {
       const th = document.createElement('th');
-      th.textContent = encabezado;
+      th.textContent = columna;
       encabezadoRow.appendChild(th);
     }
     tablaReportes.appendChild(encabezadoRow);
 
-    // Crear las filas de datos
-    datos.forEach(dato => {
+    otros.forEach(dato => {
       const fila = document.createElement('tr');
-      for (const prop in dato) {
+      for (const columna of columnas) {
         const celda = document.createElement('td');
-        celda.textContent = dato[prop];
+        celda.textContent = dato[columna];
         fila.appendChild(celda);
       }
       tablaReportes.appendChild(fila);
@@ -81,9 +106,9 @@ const Vista = {
 
   },
 
+
   mostrarDatosUsuario(res) {
     datos_usuario = res.data.datos_pacientes
-    console.log(datos_usuario)
 
     nombre = datos_usuario['nombre']
     apellido = datos_usuario['apellido']
@@ -230,7 +255,7 @@ const Vista = {
 
   },
 
-  mostrarMensajeSatisfactorio(mensaje){
+  mostrarMensajeSatisfactorio(mensaje) {
     Swal.fire({
       icon: 'success',
       title: 'Éxito',
@@ -238,7 +263,7 @@ const Vista = {
     })
   },
 
-  mostrarMensajeError(mensaje){
+  mostrarMensajeError(mensaje) {
     Swal.fire({
       icon: 'error',
       title: 'Oops...',

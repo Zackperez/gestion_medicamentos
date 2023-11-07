@@ -4,11 +4,9 @@
     display: grid;
     grid-template-areas:
         "datos-doctor datos-doctor"
-        "busqueda-paciente reportes"
-        "busqueda-paciente recordatorios"
         "busqueda-paciente correo";
     grid-template-columns: 23vw auto;
-    grid-template-rows: 15vh 35vh 40vh auto;
+    grid-template-rows: 15vh 80vh;
     row-gap: 2vw;
     column-gap: 2vw;
     padding: 1vw;
@@ -119,41 +117,10 @@
     font-size: 1vw;
 }
 
-/* REPORTES */
-
-.contenedor .contenido .reportes-paciente {
-    grid-area: reportes;
-    background-color: var(--blanco);
-    border-radius: 0.5vw;
-    padding: 1vw;
-}
-
-/* RECORDATORIOS */
-
-.contenedor .contenido .recordatorios-paciente {
-    grid-area: recordatorios;
-    background-color: var(--blanco);
-    border-radius: 0.5vw;
-    padding: 1vw;
-    overflow: auto;
-}
-
 button {
     padding: 1vw;
 }
 
-.contenedor .contenido .recordatorios-paciente .contenedor {
-    display: flex;
-    padding: 1vw;
-    flex-wrap: wrap;
-    row-gap: 2vw;
-}
-
-.contenedor .contenido .recordatorios-paciente .contenedor .recordatorio {
-    display: flex;
-    column-gap: 2vw;
-    row-gap: 2vw;
-}
 
 /* CORREO */
 
@@ -223,6 +190,7 @@ td {
     text-align: center;
     font-size: 1vw;
 }
+
 th {
     background-color: var(--pink);
     font-weight: bold;
@@ -231,103 +199,4 @@ th {
 
 tr{
     background-color: #f9f9f9;
-}
-
-.contenedor-triangulo {
-    position: absolute;
-}
-
-.triangulo {
-    border-left: 15px solid transparent;
-    border-right: 15px solid transparent;
-    border-bottom: 20px solid var(--gris);
-    margin-left: 89.45vw;
-    margin-top: 11vh;
-}
-
-.modal-notificaciones {
-    display: none;
-    /* POr defecto no se muestran en pantalla hasta que se abran */
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
-}
-
-.modal-notificaciones .modal-contenido {
-    display: grid;
-    background-color: var(--gris);
-    align-content: start;
-    height: 70vh;
-    width: 55vw;
-    margin: 6.5% 40%;
-    padding: 0;
-}
-
-.modal-notificaciones .modal-contenido .modal-cabecera {
-    display: flex;
-    height: 10vh;
-    background-color: var(--gris);
-    padding: 0.5vw 1vw;
-    flex-direction: row-reverse;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.modal-notificaciones .modal-contenido .modal-cabecera h2 {
-    font-size: 2vw;
-    text-align: start;
-}
-
-.modal-notificaciones .modal-cuerpo {
-    display: grid;
-    row-gap: 1vw;
-    align-content: start;
-    padding: 1vw;
-    overflow: auto;
-}
-
-.modal-notificaciones .modal-cuerpo .contenedor-notificaciones {
-    display: grid;
-    grid-template-areas:
-        "icono titulo fecha hora"
-        "icono lugar lugar lugar";
-    column-gap: 1vw;
-    padding: 1vw;
-    background-color: white;
-    border-radius: 0.5vw;
-}
-
-.modal-notificaciones .modal-cuerpo .icono {
-    grid-area: icono;
-}
-
-.modal-notificaciones .modal-cuerpo .titulo {
-    grid-area: titulo;
-}
-
-.modal-notificaciones .modal-cuerpo .fecha {
-    grid-area: fecha;
-}
-
-.modal-notificaciones .modal-cuerpo .fecha p,
-.hora p,
-.titulo p {
-    font-weight: bold;
-    font-size: 1vw;
-}
-
-.modal-notificaciones .modal-cuerpo .hora {
-    grid-area: hora;
-}
-
-.modal-notificaciones .modal-cuerpo .lugar {
-    grid-area: lugar;
-}
-
-.modal-notificaciones .modal-cuerpo .lugar p {
-    font-size: 1vw;
 }

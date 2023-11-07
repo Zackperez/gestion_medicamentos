@@ -197,7 +197,7 @@ body{
 	text-decoration: none;
 	color: var(--negro);
 	font-weight: bold;
-	background-color: var(--anaranjado);
+	background-color: var(--verde);
 }
 
 .contenedor .recordatorios .botones a:hover {
@@ -302,7 +302,7 @@ header .current-date {
 }
 
 .days li.active::before {
-	background: var(--anaranjado);
+	background: var(--verde);
 }
 
 .days li:not(.active):hover::before {
@@ -413,7 +413,7 @@ header .current-date {
 
 .btn-cerrar-modal:hover,
 .btn-cerrar-modal:focus {
-	color: var(--anaranjado);
+	color: var(--verde);
 	text-decoration: none;
 	cursor: pointer;
 }
@@ -482,7 +482,7 @@ input[type=text],
 input[type=date],
 input[type=time],
 select{
-	background-color: var(--anaranjado);
+	background-color: var(--verde);
 	border: none;
 	width: 20vw;
 	padding: 12px 20px;

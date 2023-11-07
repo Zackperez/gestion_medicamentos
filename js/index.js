@@ -61,7 +61,6 @@ const Modelo = {
   },
 
   // Funciones de usuario
-
   async obtenerDatosUsuario(id_paciente) {
 
     const res = await axios({

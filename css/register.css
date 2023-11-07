@@ -109,7 +109,7 @@ select {
 }
 
 .registro-usuario .contenido .botones button{
-    background-color: var(--anaranjado);
+    background-color: var(--verde);
     border: none;
     width: 20vw;
     padding: 12px 20px;
