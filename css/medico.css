@@ -69,10 +69,9 @@
 
 .contenedor .contenido .busqueda-paciente .cuadro-busqueda {
     display: flex;
+    align-items: center;
     column-gap: 0.5vw;
     padding: 1vw;
-    justify-content: center;
-    align-items: center;
 }
 
 .contenedor .contenido .busqueda-paciente .boton-buscar {

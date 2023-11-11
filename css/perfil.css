@@ -134,7 +134,7 @@
 }
 
 .perfil-usuario .contenido .contenedor-informacion .botones-perfil button{
-	background-color: var(--verde);
+	background-color: var(--anaranjado);
 	border: none;
 	border-radius: 0.5vw;
 	padding: 1vw 2vw;

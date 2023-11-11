@@ -54,7 +54,7 @@
   text-decoration: none;
   font-weight: bold;
   color: black;
-  background-color: var(--verde);
+  background-color: var(--anaranjado);
 }
 
 .hero .contenido .botones a:hover {
@@ -126,7 +126,7 @@
 
 input[type=text],
 input[type=date] {
-  background-color: var(--verde);
+  background-color: var(--anaranjado);
   border: none;
   width: 20vw;
   padding: 12px 20px;
@@ -142,7 +142,7 @@ input[type=date] {
 
 .hero .modal-contenido .modal-pie button {
   margin-right: 3.1vw;
-  background-color: var(--verde);
+  background-color: var(--anaranjado);
   padding: 0.5vw 3vw;
   border-radius: 0.5vw;
   font-weight: bold;

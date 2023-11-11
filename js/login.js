@@ -25,6 +25,34 @@ const Vista = {
     return { username, password };
   },
 
+  
+
+  mostrarDatosCSV: function (datos) {
+    const tablaDatosCSV = document.getElementById('tablaDatos');
+    tablaDatosCSV.innerHTML = ''; // Limpiar contenido existente
+
+    // Crear la fila de encabezados
+    const encabezadoRow = document.createElement('tr');
+    for (const encabezado of Object.keys(datos[0])) {
+      const th = document.createElement('th');
+      th.textContent = encabezado;
+      encabezadoRow.appendChild(th);
+    }
+    tablaDatosCSV.appendChild(encabezadoRow);
+
+    // Crear las filas de datos
+    datos.forEach(dato => {
+      const fila = document.createElement('tr');
+      for (const prop in dato) {
+        const celda = document.createElement('td');
+        celda.textContent = dato[prop];
+        fila.appendChild(celda);
+      }
+      tablaDatosCSV.appendChild(fila);
+    });
+
+  },
+
   mostrarMensajeError(mensaje) {
     console.log(mensaje)
   },
@@ -41,9 +69,7 @@ const Vista = {
     location.href = ("./medico.html");
   },
 
-  redirigirNotificador() {
-    location.href = ("./area_notificaciones.html");
-  },
+  
 
 }
 
@@ -53,22 +79,28 @@ const Controlador = {
     const { username, password } = Vista.getDatosIniciarSesion();
     try {
       const res = await Modelo.iniciarSesion(username, password);
+      console.log(res)
       if (res.data.acceso == true) {
-        const resData = res.data;
-        const access_token = resData.access_token;
-        const nombreUsuario = resData.nombre;
-        const id_paciente = resData.id_paciente;
-
-        localStorage.setItem("access_token", access_token);
-        localStorage.setItem("usuario", nombreUsuario);
-        localStorage.setItem("id_paciente", id_paciente);
-
-        if (resData.rol === "usuario") {
+        if (res.data.rol == "usuario"){
+          const access_token = res.data.access_token;
+          const id_paciente = res.data.id_paciente;
+  
+          localStorage.setItem("access_token", access_token);
+          localStorage.setItem("id_paciente", id_paciente);
+          Vista.mostrarMensajeSatisfactorio("Inicio de sesión exitoso");
           Vista.redirigirAlUsuario();
-        } else if (resData.rol === "medico") {
+        }
+
+        if(res.data.rol == "medico"){
+          const access_token = res.data.access_token;
+          const nombreUsuario = res.data.nombre;
+          const id_paciente = res.data.id_paciente;
+
+          localStorage.setItem("access_token", access_token);
+          localStorage.setItem("usuario", nombreUsuario);
+          localStorage.setItem("id_paciente", id_paciente);
+
           Vista.redirigirMedico();
-        } else if (resData.rol === "notificador") {
-          Vista.redirigirNotificador();
         }
 
       } else {
@@ -120,5 +152,5 @@ document.addEventListener('DOMContentLoaded', function () {
   btnIniciarSesionModal.onclick = function () {
     Controlador.iniciarSesion()
   }
-
+  
 })
