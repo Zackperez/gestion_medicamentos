@@ -39,10 +39,10 @@
 
                     <div id="notificacionNumero">
                     </div>
-                    
+
                     <div class="inicio">
-                        <a href="../index.html"><i class="fa-solid fa-house fa-2x"></i></a> 
-                     </div>
+                        <a href="../index.html"><i class="fa-solid fa-house fa-2x"></i></a>
+                    </div>
 
                     <div class="reportar">
                         <a id="btnAbrirModalReportar"><i class="fa-solid fa-pen-to-square fa-2x"></i></a>
@@ -171,31 +171,35 @@
                         <div class="modal-cabecera">
                             <span class="btn-cerrar-modal cerrar-modal-reportar">&times;</span>
                             <h2>Reportar</h2>
-                            <p>Selecciona la enfermedad o malestar que queires reportar al doctor:</p>
+                            <p> Redacta un breve mensaje que quieres reportar</p>
                         </div>
 
                         <div class="modal-cuerpo">
 
                             <div class="campo">
                                 <div class="campo-titulo">
-                                    <label for="name">Malestar/Enfermedad</label>
+                                    <label for="name">Sintomas</label>
                                 </div>
-                                <div class="campo-texto campo-combobox">
-                                    <select id="campoMalestarComboboxReportar" class="combobox">
-                                        <option>Dolor de cabeza</option>
-                                        <option>Malestar general</option>
-                                        <option>Vomitos</option>
-                                    </select>
+                                <div class="campo-texto">
+                                    <input type="text" id = "sintomasReporte">
                                 </div>
                             </div>
 
                             <div class="campo">
                                 <div class="campo-titulo">
-                                    <label for="name">Redacta una breve descripción del reporte a enviar al
-                                        doctor</label>
+                                    <label for="name">Enfermedad</label>
+                                </div>
+                                <div class="campo-texto">
+                                    <input type="text" id="enfermedadReporte">
+                                </div>
+                            </div>
+
+                            <div class="campo">
+                                <div class="campo-titulo">
+                                    <label for="name">Redacta una breve descripción a enviar al doctor</label>
                                 </div>
                                 <div class="campo-texto campo-textarea">
-                                    <textarea name="" id=""></textarea>
+                                    <textarea name="" id="descripcionReporte"></textarea>
                                 </div>
                             </div>
 

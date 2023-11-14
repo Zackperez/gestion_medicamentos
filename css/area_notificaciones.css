@@ -58,6 +58,8 @@
     grid-area: busqueda-paciente;
     border-radius: 0.5vw;
     background-color: var(--blanco);
+    overflow: auto;
+
 }
 
 .contenedor .contenido .busqueda-paciente .cuadro-busqueda .busqueda input {
@@ -137,14 +139,17 @@ button {
 }
 
 .contenedor .contenido .redactar-correo .contenedor {
-    display: grid;
+    display: flex;
+    column-gap: 1vw;
     grid-template-areas:
         "destinario correo"
         "asunto correo"
         "asunto boton";
     grid-template-columns: 30vw 10vw;
     padding: 2vw;
+    justify-content: flex-start;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .contenedor .contenido .redactar-correo .contenedor .destinario {
@@ -155,7 +160,7 @@ button {
     grid-area: asunto;
 }
 
-.contenedor .contenido .redactar-correo .contenedor .texto-correo {
+.contenedor .contenido .redactar-correo .contenedor .descripcion-correo {
     grid-area: correo;
 }
 
@@ -163,9 +168,9 @@ button {
     grid-area: boton;
 }
 
-.contenedor .contenido .redactar-correo .contenedor .texto-correo .texto textarea {
+.contenedor .contenido .redactar-correo .contenedor .descripcion-correo .texto textarea {
     resize: none;
-    width: 35vw;
+    width: 62vw;
     height: 12vh;
 }
 

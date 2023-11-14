@@ -7,7 +7,7 @@ const Modelo = {
       fecha: fecha,
       hora: hora,
       medicamento: medicamento,
-      informacion: informacion,
+      informacion: "Lugar: " + informacion,
       id_paciente: id_paciente
     }
 
@@ -60,6 +60,25 @@ const Modelo = {
     return res;
   },
 
+  async crearReporte(descripcion, sintomas, enfermedad, idPaciente) {
+
+    const datos_insertar = {
+      descripcion: descripcion,
+      sintomas: sintomas,
+      enfermedad: enfermedad,
+      idPaciente: idPaciente
+    }
+
+    console.log(datos_insertar)
+
+    const res = await axios({
+      method: "POST",
+      url: `http://127.0.0.1:5000/crear-reporte/${idPaciente}`,
+      data: datos_insertar
+    });
+    return res;
+  },
+
   // Funciones de usuario
 
   async obtenerDatosUsuario(id_paciente) {
@@ -78,6 +97,8 @@ const Vista = {
 
   mostrarNotificaciones(res) {
 
+    console.log(res.data.datos_notificaciones)
+
     const contenedorNotificaciones = document.getElementById('contenedorNotificaciones');
     const notificacionNumero = document.getElementById('notificacionNumero');
     numeroNotificaciones = res.data['datos_notificaciones'].length
@@ -85,14 +106,25 @@ const Vista = {
     dataxd.forEach(element => {
       const div = document.createElement('div');
       div.classList.add('contenedor-notificaciones');
+
+      // Define el icono en función del asunto
+      let icono = '';
+      if (element.asunto === 'Respuesta') {
+        icono = '<i class="fa-solid fa-user-doctor fa-3x"></i>'; // Reemplaza 'otro-icono-aqui' con la clase o el código del otro icono que desees usar
+
+      } else if (element.asunto === 'Retiro') {
+        icono = '<i class="fa-solid fa-prescription-bottle-medical fa-3x"></i>';
+
+      }
+
       div.innerHTML =
-          `
+        `
         <div class="icono">
-            <i class="fa-solid fa-prescription-bottle-medical fa-3x"></i>
+          ${icono}
         </div>
 
         <div class="titulo">
-            <p>Retiro de ${element.medicina}</p>
+            <p>${element.medicina}</p>
         </div>
 
         <div class="fecha">
@@ -104,15 +136,15 @@ const Vista = {
         </div>
 
         <div class="lugar">
-            <p>Lugar:${element.informacion}</p>
+            <p>${element.informacion}</p>
         </div>
         `
       contenedorNotificaciones.append(div)
     });
     const div = document.createElement('div');
     div.classList.add('notificacion-numero')
-    div.innerHTML = 
-    `
+    div.innerHTML =
+      `
       <p>${numeroNotificaciones}</p>
 
     `;
@@ -194,12 +226,19 @@ const Vista = {
 
   },
 
+  getDatosReporte() {
+    const descripcion = document.querySelector('#descripcionReporte').value
+    const sintomas = document.querySelector('#sintomasReporte').value
+    const enfermedad = document.querySelector('#enfermedadReporte').value
+    const idPaciente = localStorage.getItem('id_paciente');
+
+    return { descripcion, sintomas, enfermedad, idPaciente }
+  },
   // Funciones que muestran la vista
 
   mostrarRecordatorios(response) {
     const contenedorRecordatorios = document.querySelector('#contenedorRecordatorios');
     data = response.data['recordatorios']
-    console.log(data)
     data.forEach(element => {
       const contenedor = document.createElement('div');
 
@@ -277,7 +316,6 @@ const Vista = {
       title: 'Ocurrió un error',
       text: mensaje,
     })
-
   },
 
   mostrarMensajeSatisfactorio(mensaje) {
@@ -334,6 +372,8 @@ const Controlador = {
     try {
 
       const res = await Modelo.agregarRecordatorio(fechaFormateadaxd, hora, medicamento, informacion, id_paciente);
+
+      console.log(res)
 
       statusRequest = res.request['status']
 
@@ -421,6 +461,7 @@ const Controlador = {
     try {
       const res = await Modelo.obtenerRecordatorios(id_paciente);
       Vista.mostrarRecordatorios(res)
+
     } catch (err) {
       console.log(err);
     }
@@ -461,7 +502,21 @@ const Controlador = {
     } catch (err) {
       console.log(err);
     }
+  },
+
+  async crearReporte() {
+    const { descripcion, sintomas, enfermedad, idPaciente } = Vista.getDatosReporte();
+
+    try {
+      const res = await Modelo.crearReporte(descripcion, sintomas, enfermedad, idPaciente);
+      Vista.mostrarMensajeSatisfactorio("Reporte enviado!")
+    } catch (err) {
+      console.log(err);
+    }
+
   }
+
+
 
 }
 
@@ -646,4 +701,10 @@ btnInsertarDatosRecordatorio.onclick = function () {
       Controlador.agregarRecordatorio()
     }
   })
+}
+
+const btnReportarDatosModal = document.querySelector('#btnReportarDatosModal')
+
+btnReportarDatosModal.onclick = function () {
+  Controlador.crearReporte()
 }

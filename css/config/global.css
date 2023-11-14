@@ -52,9 +52,9 @@ input[type=text],
 input[type=date],
 input[type=time],
 input[type=email],
+input[type=password],
+input[type=phone],
 select {
-    background-color: var(--anaranjado);
-    border: none;
     width: 20vw;
     padding: 12px 20px;
     margin: 8px 0;

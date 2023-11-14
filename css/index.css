@@ -458,7 +458,6 @@ header .current-date {
 	column-gap: 2vw;
 }
 
-
 .modal-pie {
 	display: flex;
 	justify-content: end;
@@ -469,25 +468,6 @@ header .current-date {
 	display: flex;
 	justify-content: space-evenly;
 	align-items: center;
-}
-
-.combobox {
-	width: 20vw;
-	padding: 12px 20px;
-	margin: 8px 0;
-	box-sizing: border-box;
-}
-
-input[type=text],
-input[type=date],
-input[type=time],
-select{
-	background-color: var(--anaranjado);
-	border: none;
-	width: 20vw;
-	padding: 12px 20px;
-	margin: 8px 0;
-	box-sizing: border-box;
 }
 
 .contenedor-triangulo{

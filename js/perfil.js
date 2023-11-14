@@ -10,11 +10,11 @@ const Modelo = {
 
     async obtenerNotificaciones(id) {
         const res = await axios({
-          method: "GET",
-          url: `http://127.0.0.1:5000/obtener-notificaciones/${id}`,
+            method: "GET",
+            url: `http://127.0.0.1:5000/obtener-notificaciones/${id}`,
         });
         return res;
-      },
+    },
 }
 
 const Vista = {
@@ -29,10 +29,10 @@ const Vista = {
     getDatosUsuarioRecordatorios() {
 
         if (localStorage.getItem("id_paciente")) {
-          const id_paciente = localStorage.getItem("id_paciente")
-          return id_paciente
+            const id_paciente = localStorage.getItem("id_paciente")
+            return id_paciente
         }
-      },
+    },
 
     mostrarDatosUsuario(res) {
         datos = res.data
@@ -131,12 +131,21 @@ const Vista = {
         numeroNotificaciones = res.data['datos_notificaciones'].length
         dataxd = res.data['datos_notificaciones']
         dataxd.forEach(element => {
-          const div = document.createElement('div');
-          div.classList.add('contenedor-notificaciones');
-          div.innerHTML =
-              `
+            const div = document.createElement('div');
+            div.classList.add('contenedor-notificaciones');
+            // Define el icono en función del asunto
+            let icono = '';
+            if (element.asunto === 'Respuesta') {
+                icono = '<i class="fa-solid fa-user-doctor fa-3x"></i>'; // Reemplaza 'otro-icono-aqui' con la clase o el código del otro icono que desees usar
+
+            } else if (element.asunto === 'Retiro') {
+                icono = '<i class="fa-solid fa-prescription-bottle-medical fa-3x"></i>';
+
+            }
+            div.innerHTML =
+                `
             <div class="icono">
-                <i class="fa-solid fa-prescription-bottle-medical fa-3x"></i>
+               ${icono}
             </div>
     
             <div class="titulo">
@@ -155,18 +164,18 @@ const Vista = {
                 <p>Lugar:${element.informacion}</p>
             </div>
             `
-          contenedorNotificaciones.append(div)
+            contenedorNotificaciones.append(div)
         });
         const div = document.createElement('div');
         div.classList.add('notificacion-numero')
-        div.innerHTML = 
-        `
+        div.innerHTML =
+            `
           <p>${numeroNotificaciones}</p>
     
         `;
         notificacionNumero.append(div)
-    
-      },
+
+    },
 
 }
 
@@ -187,14 +196,14 @@ const Controlador = {
 
     async mostrarNotificaciones() {
         const id_paciente = Vista.getDatosUsuarioRecordatorios();
-    
+
         try {
-          const res = await Modelo.obtenerNotificaciones(id_paciente);
-          Vista.mostrarNotificaciones(res)
+            const res = await Modelo.obtenerNotificaciones(id_paciente);
+            Vista.mostrarNotificaciones(res)
         } catch (err) {
-          console.log(err);
+            console.log(err);
         }
-      }
+    }
 
 
 }
@@ -249,30 +258,30 @@ document.addEventListener('DOMContentLoaded', function () {
                 localStorage.removeItem('access_token');
                 localStorage.removeItem('id_paciente');
                 localStorage.removeItem('id_patient');
-                location.href = ("./pages/login.html");
+                location.href = ("./login.html");
             }
         })
 
     }
 
-/* MODAL Notificaciones */
-var modalNotificaciones = document.getElementById("targetModalNotificaciones");
-var btnAbrirModalNotificaciones = document.getElementById("btnAbrirModalNotificaciones");
-var btnCerrarModalNotificaciones = document.getElementsByClassName("cerrar-modal-notificaciones")[0];
+    /* MODAL Notificaciones */
+    var modalNotificaciones = document.getElementById("targetModalNotificaciones");
+    var btnAbrirModalNotificaciones = document.getElementById("btnAbrirModalNotificaciones");
+    var btnCerrarModalNotificaciones = document.getElementsByClassName("cerrar-modal-notificaciones")[0];
 
-btnAbrirModalNotificaciones.onclick = function () {
-  modalNotificaciones.style.display = "block";
-}
+    btnAbrirModalNotificaciones.onclick = function () {
+        modalNotificaciones.style.display = "block";
+    }
 
-btnCerrarModalNotificaciones.onclick = function () {
-  modalNotificaciones.style.display = "none";
-}
+    btnCerrarModalNotificaciones.onclick = function () {
+        modalNotificaciones.style.display = "none";
+    }
 
-window.onclick = function (event) {
-  if (event.target == modalNotificaciones) {
-    modalNotificaciones.style.display = "none";
-  }
-}
+    window.onclick = function (event) {
+        if (event.target == modalNotificaciones) {
+            modalNotificaciones.style.display = "none";
+        }
+    }
 
 });
 

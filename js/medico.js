@@ -16,6 +16,27 @@ const Modelo = {
     });
     return res;
   },
+
+  async enviarNotificacion(fechaFormateada, horaFormateada, medicina, informacion, asunto, id_paciente, celular){
+    const datos_insertar = {
+      fecha: fechaFormateada,
+      hora: horaFormateada,
+      medicina: medicina,
+      informacion: informacion,
+      asunto: asunto,
+      celular: celular,
+      id_paciente: id_paciente,
+    }
+
+    console.log(datos_insertar)
+
+    const res = await axios({
+      method: "POST",
+      url: `http://127.0.0.1:5000/enviar-notificaciones-usuario/`,
+      data: datos_insertar
+    });
+    return res;
+  }
 }
 
 const Vista = {
@@ -83,7 +104,6 @@ const Vista = {
 
   mostrarDatosUsuario(res) {
     datos_usuario = res.data.datos_pacientes
-    console.log(datos_usuario)
 
     nombre = datos_usuario['nombre']
     apellido = datos_usuario['apellido']
@@ -176,41 +196,83 @@ const Vista = {
   mostrarEnviarCorreo(res) {
     datos_usuario = res.data.datos_pacientes
     correo = datos_usuario['correo']
+    cedula = datos_usuario['id_paciente']
     const contenedorCorreo = document.getElementById('contenedorCorreo');
 
     contenedorCorreo.innerHTML =
       `
     <div class="campo destinario">
-      <div class="titulo">
-          <p>Correo:</p>
-      </div>
-      <div class="texto">
-          <input type="email" value="${correo}"> 
-      </div>
-  </div>
+        <div class="titulo">
+            <p>Correo:</p>
+        </div>
+        <div class="texto">
+            <input type="email" value="${correo}"> 
+        </div>
+    </div>
+    
+    <div class="campo asunto">
+        <div class="titulo">
+            <p>Cédula:</p>
+        </div>
+        <div class="texto">
+            <input type="text" id = "idPaciente" disabled = True value="${cedula}">
+        </div>
+    </div>
 
-  <div class="campo asunto">
-      <div class="titulo">
-          <p>Asunto:</p>
-      </div>
-      <div class="texto">
-          <input type="text" value="Busqueda de medicamentos">
-      </div>
-  </div>
+    <div class="campo asunto">
+        <div class="titulo">
+            <p>Asunto:</p>
+        </div>
+        <div class="texto">
+            <input type="text" id = "asuntoEscrito" value="">
+        </div>
+    </div>
 
-  <div class="campo texto-correo">
-      <div class="titulo">
-          <p>Texto:</p>
-      </div>
-      <div class="texto">
-          <textarea id="correoTexto"></textarea>
-      </div>
-  </div>
+    <div class="campo texto-correo">
+        <div class="titulo">
+            <p>Texto:</p>
+        </div>
+        <div class="texto">
+            <textarea id="correoTexto"></textarea>
+        </div>
+    </div>
 
-  <div class="botones">
+    <div class="botones">
       <button id="enviarCorreo">Enviar</button>
-  </div>
-    `
+    </div>
+
+      `
+
+    const enviarCorreo = document.getElementById('enviarCorreo')
+
+    enviarCorreo.addEventListener("click", function() {
+      Controlador.enviarCorreoUsuario()
+    })
+  },
+
+  datosNotificacion(){
+    var fechaActual = new Date();
+    const hora = fechaActual.getTime()
+
+    const fecha = fechaActual.getDate();
+
+    var year = fechaActual.getFullYear();
+    var month = fechaActual.getMonth() + 1;
+    var fechaFormateada = year+"-"+month+"-"+fecha
+
+    var horas = fechaActual.getHours();
+    var minutos = fechaActual.getMinutes();
+    var segundos = fechaActual.getSeconds();
+
+    var horaFormateada = horas+":"+minutos+":"+segundos
+    console.log(fechaFormateada)
+    console.log(horaFormateada) 
+    
+    const informacion = document.getElementById('correoTexto').value
+    const asunto = document.getElementById('asuntoEscrito').value
+    const idPaciente = document.getElementById('idPaciente').value
+    
+    return { fechaFormateada, horaFormateada, medicina: "Respuesta del doctor", informacion, asunto, idPaciente, celular: "NaN" } 
   },
 
   traerNombreDoctor() {
@@ -245,6 +307,14 @@ const Vista = {
       text: mensaje,
     })
   },
+
+  borrarCamposCorreo() {
+    var asuntoEscrito = document.querySelector('#asuntoEscrito');
+    var correoTexto = document.querySelector('#correoTexto');
+
+    asuntoEscrito.value = "";
+    correoTexto.value = "";
+  }
 }
 
 const Controlador = {
@@ -275,6 +345,18 @@ const Controlador = {
     } catch (error) {
       console.log(error)
     }
+  },
+
+  async enviarCorreoUsuario(){
+    const { fechaFormateada, horaFormateada, medicina, informacion, asunto, idPaciente, celular } = Vista.datosNotificacion();
+
+    try {
+      const res = await Modelo.enviarNotificacion(fechaFormateada, horaFormateada, medicina, informacion, asunto, idPaciente, celular)
+      Vista.mostrarMensajeSatisfactorio("Correo enviado!")
+      Vista.borrarCamposCorreo()
+    } catch (error) {
+      console.log(error)  
+    }
   }
 
 }
@@ -282,7 +364,6 @@ const Controlador = {
 document.addEventListener('DOMContentLoaded', function () {
 
   Controlador.traerDatosDoctor();
-
 
   if (localStorage.getItem("access_token")) {
 
@@ -361,3 +442,4 @@ const buscarPaciente = document.getElementById('buscarPaciente')
 buscarPaciente.onclick = function () {
   Controlador.traerInformacionUsuario()
 }
+
